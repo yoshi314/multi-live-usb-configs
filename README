@@ -2,6 +2,12 @@ Following config files specify a configuration layout that allows a user to put 
 
 INSTALLATION
 ------------
+0. You will need :
+- a linux system
+- a few livecd iso files.
+- syslinux (preferably 4.xx) installed on your linux system, along with mtools.
+- a usb flash drive
+
 1. Create a partition on your flashdrive, mark it bootable.
 2. If you want to use Hiren's boot cd, format it to fat32, otherwise you can go with ext2/ext3.
 3. Install syslinux to the partition
@@ -43,3 +49,27 @@ non-fat32 filesystems will have more complex UUID's. Don't worry about that, and
 Example : 
 /dev/sda2: LABEL="boot" UUID="e27288df-82eb-44b3-90d3-32ffd6f8c26b" TYPE="ext3"
 
+
+
+IT DOES NOT BOOT AT ALL!
+------------------------
+Try with qemu, by doing 
+sudo qemu -hda /dev/sdc 
+
+Where /dev/sdc is the usb device. If it boots, there might be a problem with your BIOS. The device must not be mounted when doing this !
+
+If it doesn't boot under qemu at all, you messed something up. Try reinstalling syslinux/extlinux on the device.
+
+There are alternate boot records for syslinux you can use which might fix compatibility. 
+
+syslinux and extlinux has -s parameter that installs slower, but more compatible MBR to the device.
+
+In syslinux directory on your system (mentioned earlier) there will be files *mbr.bin , *mbr_c.bin and *mbr_f.bin. They might be more compatible.
+
+* The _c will boot the first harddrive when ctrl is held during bootup, the _f will always try to boot the first hard drive.
+
+Alternative mbr's : 
+* The altmbr will ignore the active flag on a partition and instead boot a specified partition. It needs to be configured by adding a byte with partition number to the end of the file, and then installing it into MBR.
+* the gptmbr is for GPT partition layouts.
+
+There is at least one mainboard that won't boot with syslinux off usb, no matter what and either appear to lock up or show "Operating system not found" or similar output. It's p45i45 asrock mainboard. Only solution i found is to use grub2 on the drive, which appears to be more compatible, but does not offer certain things that syslinux does.
