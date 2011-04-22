@@ -49,7 +49,16 @@ non-fat32 filesystems will have more complex UUID's. Don't worry about that, and
 Example : 
 /dev/sda2: LABEL="boot" UUID="e27288df-82eb-44b3-90d3-32ffd6f8c26b" TYPE="ext3"
 
+WHAT'S THAT LABEL ?
+-------------------
+some configs specify a SOMELABEL parameter. Replace it with a label of your partition on usb. You can see it in blkid command output, e.g
 
+/dev/sdc1: UUID="D88E-7075" TYPE="vfat" LABEL="MYSUPERUSBPEN"
+
+If your partition does not have a label, you can give it one by doing
+
+tune2fs -L somelabel /dev/sdc1  (ext2/ext3)
+dosfslabel /dev/sdc1 somelabel  (fat32)
 
 IT DOES NOT BOOT AT ALL!
 ------------------------
