@@ -1,1 +1,45 @@
-following config files specify a configuration layout that allows a user to put multiple live repositories on a single usb flashdrive.
+Following config files specify a configuration layout that allows a user to put multiple live repositories on a single usb flashdrive.
+
+INSTALLATION
+------------
+1. Create a partition on your flashdrive, mark it bootable.
+2. If you want to use Hiren's boot cd, format it to fat32, otherwise you can go with ext2/ext3.
+3. Install syslinux to the partition
+
+syslinux -i /dev/xxx  (when using fat32)
+OR 
+extlinux -i /dev/xxx ( When using ext2/ext3 ) 
+
+4. Copy over the config files and splash. You can test now the device, the menu should work but you won't be able to boot anything yet.
+5. Copy over all .c32 files from your syslinux directory to the root of usb drive. 
+Depending on the distribution they may be in /usr/share/syslinux or /usr/lib/syslinux.
+
+
+
+HOW DO I PUT MY LIVE DISTRIBUTION FILES ON THE USB
+--------------------------------------------------
+First, you need to unpack the iso image of your livecd. You can use 7zip for that.
+
+For instance, by running "7z x file.iso", or by mounting the iso image and copying out the files. Copying files out of the iso with mc often fails, producing 0 length files (KNOPPIX) or not opening the iso at all (system rescue cd).
+
+Once you extract the contents of the iso image, check the .cfg file for that distribution for further instructions. For example, for Fedora read fedora.cfg file.
+
+
+
+WHAT'S THAT UUID ? 
+------------------
+You might notice that some configuration files contain a phrase UUID=SOMEUUID . You will need to fix that manually.
+
+First issue a command 'blkid' with your usb device plugged in to your computer. You should get something like this
+
+(.....)
+/dev/sdc1: UUID="D88E-7075" TYPE="vfat"
+
+Where /dev/sdc1 is the usb device. So the UUID is D88E-7075 . Replace all occurences of SOMEUUID with that value in config files.
+
+
+non-fat32 filesystems will have more complex UUID's. Don't worry about that, and proceed normally.
+
+Example : 
+/dev/sda2: LABEL="boot" UUID="e27288df-82eb-44b3-90d3-32ffd6f8c26b" TYPE="ext3"
+
