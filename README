@@ -82,3 +82,6 @@ Alternative mbr's :
 * the gptmbr is for GPT partition layouts.
 
 There is at least one mainboard that won't boot with syslinux off usb, no matter what and either appear to lock up or show "Operating system not found" or similar output. It's p45i45 asrock mainboard. Only solution i found is to use grub2 on the drive, which appears to be more compatible, but does not offer certain things that syslinux does.
+
+
+You can also try running tinycore linux, and using it's usb installer. Usually the device will be more likely to work with syslinux, if you format it with tinycore's installer.
