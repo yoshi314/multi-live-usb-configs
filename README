@@ -85,3 +85,9 @@ There is at least one mainboard that won't boot with syslinux off usb, no matter
 
 
 You can also try running tinycore linux, and using it's usb installer. Usually the device will be more likely to work with syslinux, if you format it with tinycore's installer.
+
+USB-ZIP mode
+------------
+It's possible to setup <=8GB flash to appear as USB-ZIP. This allegedly improves compatibility with certain BIOS configurations.
+
+More info on it is here : http://www.knoppix.net/wiki/Bootable_USB_Key#Large_USB_keys
