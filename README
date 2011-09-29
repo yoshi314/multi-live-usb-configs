@@ -81,26 +81,26 @@ If it doesn't boot under qemu at all, you messed something up. Try reinstalling 
 
 Other things to try :
 ---------------------
-- zero first 1MB of the drive before installing anything on it. And try installing everything again.
+- zero first 1MB of the drive before installing anything on it. You will have to redo the installation, as it will erase the MBR and probably the partition table.
 	dd if=/dev/zero bs=1M count=1 of=/dev/sdc 
 
-	You can try erasing more, but it's not necessary.
+	You can try erasing more than 1MB, but it's not necessary.
 
 - syslinux and extlinux has -s parameter that installs slower, but more compatible MBR to the device.
 
-- There are alternate MBR bootloaders with syslinux that you can use. 
+- There are alternate MBR bootloaders provided with syslinux that you can use. 
 	In syslinux directory on your system (mentioned earlier) there will be files mbr.bin , mbr_c.bin and mbr_f.bin.
 
 	The _c variant will set the drive bios is booting from as the first harddrive when ctrl is held during bootup, the _f will always do this. 
-	This is helpful if somehow BIOS messes up the drive order. This can cause boot problems for syslinux.
+	This is helpful if somehow BIOS messes up the drive order and syslinux gets confused.
 
 - even more alternative mbr's : 
 	altmbr.bin will ignore the active (boot) flag on a partition and instead use a specified partition to boot. 
 
 	It needs to be configured by adding a byte with partition number to the end of the file, and then installing it into MBR. 
 	e.g 
-		echo -ne "\x03" >> altmbr.bin  #to make it use partition #3
-		cat altmbr.bin > /dev/sda
+		echo -ne "\x03" >> altmbr.bin  	#to make it use partition #3
+		cat altmbr.bin > /dev/sda 	#install the MBR
 
 	altmbr*.bin file should be 440 bytes long after modification. If it's not, you did something wrong.
 
