@@ -17,8 +17,13 @@ OR
 extlinux -i /dev/xxx ( When using ext2/ext3 ) 
 
 4. Copy over the config files and splash. You can test now the device, the menu should work but you won't be able to boot anything yet.
+
+4a. you can instead copy the files and splash to /syslinux on the root of the drive, to reduce the clutter.
+
 5. Copy over all .c32 files from your syslinux directory to the root of usb drive. 
 Depending on the distribution they may be in /usr/share/syslinux or /usr/lib/syslinux.
+
+5a. similarily as 4a, you can opt to copy *.c32 files into /syslinux to make things cleaner.
 
 
 
