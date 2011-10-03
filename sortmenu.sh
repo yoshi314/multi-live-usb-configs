@@ -11,8 +11,7 @@ sed -n '/#header start/,/#header end/p' syslinux.cfg
 exec < "$tempfile"
 while read line 
 do
-	grep -A 2 "$line" syslinux.cfg
-	echo
+	grep -B 2 -A 1 "$line" syslinux.cfg
 done
 
 rm "$tempfile"
