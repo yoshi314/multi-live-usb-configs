@@ -1,12 +1,13 @@
-Following config files specify a configuration layout that allows a user to put multiple live distributions on a single usb flashdrive.
+Following config files specify a configuration layout that allows a user to put multiple live distributions on a single usb flashdrive, or optical (cd/dvd) disk.
 
 INSTALLATION
 ------------
 0. You will need :
 - a linux system
 - syslinux (preferably 4.xx) installed on your linux system, along with mtools.
-- a usb flash drive
+- a usb flash drive or a blank cd/dvd disk
 - iso files of at least one supported distribution
+
 
 1. Create a partition on your flashdrive, mark it bootable.
 2. If you want to use Hiren's boot cd, format it to fat32, otherwise you can go with ext2/ext3.
@@ -119,3 +120,11 @@ Other things to try :
 
 - if all else fails, you can use grub2 or other bootloader (plopbt or something else). Grub2 doesn't have some advantages of syslinux, and requires rewriting config files. It's sometimes more compatible on certain hardware configurations (e.g. older intel motherboards).
 	You could try to chainload syslinux from grub2, that could work (untested). It's possible to do the reverse thing (hiren menu has such an option)
+
+
+No USB boot? No problem.
+-------------------
+If your computer cannot boot from usb at all, you can make a livecd/dvd using these configs.  
+Read the contents of attached buildcd.sh script for instructions.
+
+Some configs will require modifications (e.g puppy linux - pmedia=cd parameter might be necessary).
