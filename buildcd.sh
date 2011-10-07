@@ -31,4 +31,4 @@
 # livedisk 	- label of the cd/dvd filesystem
 # image 	- source directory
 
-mkisofs -R -l -o live.iso -b isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot -boot-load-size 4 -boot-info-table -V livedisk image
+mkisofs -R -l -o live.iso -b isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot -boot-load-size 4 -boot-info-table -V livedisk -A livedisk image
