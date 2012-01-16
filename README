@@ -69,7 +69,11 @@ dosfslabel /dev/sdc1 somelabel  (fat32)
 
 IT DOES NOT BOOT AT ALL!
 ------------------------
-First of all try with qemu, by doing i
+If you have a fairly recent computer, check your BIOS for option called "USB Storage Emulation Type". It's usually set to "Auto" by default, and this setting will cause "Boot error" message on startup.  Set this to "Fixed" or "All Fixed" (depending on what's available). 
+
+
+You can try booting media with qemu, by running : 
+
 sudo qemu -hda /dev/sdc 
 
 Where /dev/sdc is the usb device. If it boots, it means that syslinux installation is correct, but there might be a problem with your BIOS. 
@@ -82,6 +86,11 @@ If it doesn't boot under qemu at all, you messed something up. Try reinstalling 
 
 Other things to try :
 ---------------------
+- turn your usb device into fake USB-ZIP device.
+	It's possible to setup <=8GB flash to appear as USB-ZIP drive. This is said to greatly improve compatibility with certain BIOS configurations, however it's recommended for =<4GB devices, somewhat risky for 8GB devices, and probably impossible for >8GB devices.
+
+More info on it is here : http://www.knoppix.net/wiki/Bootable_USB_Key#Large_USB_keys . It basically uses mkdiskimage command from syslinux package.
+
 - zero first 1MB of the drive before installing anything on it. You will have to redo the installation, as it will erase the MBR and probably the partition table.
 	dd if=/dev/zero bs=1M count=1 of=/dev/sdc 
 
@@ -112,11 +121,6 @@ Other things to try :
 
 - configure partition type as FAT16, format it with any syslinux supported filesystem. 
 	This helps with some kingston data traveller II 8GB flashdrives. Try this if BIOS takes too long to recognize a device at boot, which makes it not appear in boot menu.
-
-- turn your usb device into fake USB-ZIP device.
-	It's possible to setup <=8GB flash to appear as USB-ZIP drive. This is said to greatly improve compatibility with certain BIOS configurations, however it's recommended for =<4GB devices, somewhat risky for 8GB devices, and probably impossible for >8GB devices.
-
-	More info on it is here : http://www.knoppix.net/wiki/Bootable_USB_Key#Large_USB_keys . It basically uses mkdiskimage command from syslinux package.
 
 - if all else fails, you can use grub2 or other bootloader (plopbt or something else). Grub2 doesn't have some advantages of syslinux, and requires rewriting config files. It's sometimes more compatible on certain hardware configurations (e.g. older intel motherboards).
 	You could try to chainload syslinux from grub2, that could work (untested). It's possible to do the reverse thing (hiren menu has such an option)
