@@ -26,18 +26,15 @@ Depending on the distribution they may be in /usr/share/syslinux or /usr/lib/sys
 
 5a. similarily as 4a, you can opt to copy *.c32 files into /syslinux to make things cleaner.
 
-6. edit /syslinux.cfg (or /syslinux/syslinux.cfg if you followed 4a.) and remove unnecessary entries.
-
+6. edit /syslinux.cfg (or /syslinux/syslinux.cfg if you followed 4a, 5a) and add/remove entries to suit your liking.
 
 HOW DO I PUT MY LIVE DISTRIBUTION FILES ON THE USB
 --------------------------------------------------
 First, you need to unpack the iso image of your livecd. You can use 7zip for that.
 
-For instance, by running "7z x file.iso", or by mounting the iso image and copying out the files. Copying files out of the iso with mc often fails, producing 0 length files (KNOPPIX) or not opening the iso at all (system rescue cd).
+For instance, by running "7z x file.iso", or by mounting the iso image and copying out the files. Copying files out of the iso with mc often fails, producing 0 length files (KNOPPIX) or not opening the iso at all (system rescue cd). Also, mc has tendency to omit files that start with '.' , which is often important.
 
 Once you extract the contents of the iso image, check the .cfg file for that distribution for further instructions. For example, for Fedora read fedora.cfg file.
-
-
 
 WHAT'S THAT UUID ? 
 ------------------
@@ -50,11 +47,12 @@ First issue a command 'blkid' with your usb device plugged in to your computer. 
 
 Where /dev/sdc1 is the usb device. So the UUID is D88E-7075 . Replace all occurences of SOMEUUID with that value in config files.
 
-
-non-fat32 filesystems will have more complex UUID's. Don't worry about that, and proceed normally.
+Non-fat32 filesystems will have more complex UUID's. Don't worry about that, and proceed normally.
 
 Example : 
 /dev/sda2: LABEL="boot" UUID="e27288df-82eb-44b3-90d3-32ffd6f8c26b" TYPE="ext3"
+
+UUID does not work on CD media. Use label instead, where available.
 
 WHAT'S THAT LABEL ?
 -------------------
@@ -92,43 +90,40 @@ Other things to try :
 More info on it is here : http://www.knoppix.net/wiki/Bootable_USB_Key#Large_USB_keys . It basically uses mkdiskimage command from syslinux package.
 
 - zero first 1MB of the drive before installing anything on it. You will have to redo the installation, as it will erase the MBR and probably the partition table.
-	dd if=/dev/zero bs=1M count=1 of=/dev/sdc 
+dd if=/dev/zero bs=1M count=1 of=/dev/sdc 
 
-	You can try erasing more than 1MB, but it's not necessary.
+You can try erasing more than 1MB, but it's not necessary.
 
 - syslinux and extlinux has -s parameter that installs slower, but more compatible MBR to the device.
 
 - There are alternate MBR bootloaders provided with syslinux that you can use. 
-	In syslinux directory on your system (mentioned earlier) there will be files mbr.bin , mbr_c.bin and mbr_f.bin.
+In syslinux directory on your system (mentioned earlier) there will be files mbr.bin , mbr_c.bin and mbr_f.bin.
 
-	The _c variant will set the drive bios is booting from as the first harddrive when ctrl is held during bootup, the _f will always do this. 
-	This is helpful if somehow BIOS messes up the drive order and syslinux gets confused.
+The _c variant will set the drive bios is booting from as the first harddrive when ctrl is held during bootup, the _f will always do this. 
+This is helpful if somehow BIOS messes up the drive order and syslinux gets confused.
 
 - even more alternative mbr's : 
-	altmbr.bin will ignore the active (boot) flag on a partition and instead use a specified partition to boot. 
+altmbr.bin will ignore the active (boot) flag on a partition and instead use a specified partition to boot. 
 
-	It needs to be configured by adding a byte with partition number to the end of the file, and then installing it into MBR. 
-	e.g 
-		echo -ne "\x03" >> altmbr.bin  	#to make it use partition #3
-		cat altmbr.bin > /dev/sda 	#install the MBR
+It needs to be configured by adding a byte with partition number to the end of the file, and then installing it into MBR. 
+e.g 
+echo -ne "\x03" >> altmbr.bin  	#to make it use partition #3
+cat altmbr.bin > /dev/sda 	#install the MBR
 
-	altmbr*.bin file should be 440 bytes long after modification. If it's not, you did something wrong.
+altmbr*.bin file should be 440 bytes long after modification. If it's not, you did something wrong.
 
-	It has similar _c and _f variants as mentioned before.
+It has similar _c and _f variants as mentioned before.
 
-- the gptmbr is for GPT partition layouts. it also has similar _c and _f variants for troubleshooting.
-
+- the gptmbr.bin is for GPT partition layouts. It also has similar _c and _f variants for troubleshooting, which work in similar way to their classic mbr counterparts.
 
 - configure partition type as FAT16, format it with any syslinux supported filesystem. 
-	This helps with some kingston data traveller II 8GB flashdrives. Try this if BIOS takes too long to recognize a device at boot, which makes it not appear in boot menu.
+This helps with some kingston data traveller II 8GB flashdrives, and odd bioses. Try this if BIOS takes too long to recognize a device at boot, which makes it not appear in boot menu.
 
-- if all else fails, you can use grub2 or other bootloader (plopbt or something else). Grub2 doesn't have some advantages of syslinux, and requires rewriting config files. It's sometimes more compatible on certain hardware configurations (e.g. older intel motherboards).
-	You could try to chainload syslinux from grub2, that could work (untested). It's possible to do the reverse thing (hiren menu has such an option)
-
+- if all else fails, you can use grub2 or other bootloader (plopbt or something else). Grub2 doesn't have some advantages of syslinux, and requires rewriting config files. It's sometimes more compatible on certain hardware configurations (e.g. older intel motherboards). You could try to chainload syslinux from grub2, that could work (untested). It's possible to do the reverse thing (hiren menu has such an option).
 
 No USB boot? No problem.
--------------------
-If your computer cannot boot from usb at all, you can make a livecd/dvd using these configs.  
-Read the contents of attached buildcd.sh script for instructions.
+------------------------
+If your computer cannot boot from usb at all, you could make a livecd/dvd instead. 
+Prepare the directory as usual, read the contents of attached buildcd.sh script for instructions. Make sure your configs do not use UUID parameter. Testing the generated ISO in qemu should provide realistic results.
 
 Some configs will require modifications (e.g puppy linux - pmedia=cd parameter might be necessary).
