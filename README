@@ -42,7 +42,9 @@ mv new.cfg syslinux.cfg
 8. Sometimes syslinux/extlinux won't actually install the MBR to the device ( despite what -i command is supposed to do). 
 You might have to issue following command as root : 
 
-dd if=mbr.bin of=/dev/xxx  (make sure it's not mounted, just in case), where /dev/xxx is your 
+dd if=mbr.bin of=/dev/xxx  (make sure it's not mounted, just in case), where /dev/xxx is your whole usb device (not the partition).
+
+e.g. dd if=mbr.bin of=/dev/sdc
 
 Usually mbr.bin will suffice, but there are other choices for nonstandard setups or GPT layouts. They will be described later on.
 The mbr.bin file can be found in the same directory *.c32 syslinux files are on your system.
