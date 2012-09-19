@@ -14,56 +14,91 @@ INSTALLATION
 3. Install syslinux to the partition
 
 syslinux -i /dev/xxx  (when using fat32)
+
 OR 
-extlinux -i /dev/xxx ( When using ext2/ext3 ) 
 
-4. Copy over the config files and splash. You can test now the device, the menu should work but you won't be able to boot anything yet.
+extlinux -i /mnt/directory ( When using ext2/ext3 , you need to mount your device 
+and pass the mount point as parameter for extlinux command).
 
-4a. you can instead copy the files and splash to /syslinux on the root of the drive, to reduce the clutter.
+If you did it right, a file "ldlinux.sys" should appear in the root of the partition on usb stick.
+
+4. Copy over the syslinux.cfg and splash.png to the root of device.
+
+4a. Alternatively to 4. , you can instead copy files to /syslinux on the root of the drive, to reduce the clutter.
 
 5. Copy over all .c32 files from your syslinux directory to the root of usb drive. 
-Depending on the distribution they may be in /usr/share/syslinux or /usr/lib/syslinux.
+Depending on the distribution they can be found in /usr/share/syslinux or /usr/lib/syslinux.
 
-5a. similarily as 4a, you can opt to copy *.c32 files into /syslinux to make things cleaner.
+5a. Alternatively to 5. , you can opt to copy *.c32 files into /syslinux to make root directory appear cleaner.
 
-6. edit /syslinux.cfg (or /syslinux/syslinux.cfg if you followed 4a, 5a) and add/remove entries to suit your liking.
+6. Copy .cfg files for distributions you need in the same place as files in previous steps. 
+
+7. Edit syslinux.cfg and remove/add entries to leave only distributions you will need.
+7a. Alternatively you can copy over and run genmenu.sh script. It will create a new syslinux.cfg referencing existing .cfg files.
+
+./genmenu.sh > new.cfg
+mv new.cfg syslinux.cfg
+
+8. Sometimes syslinux/extlinux won't actually install the MBR to the device ( despite what -i command is supposed to do). 
+You might have to issue following command as root : 
+
+dd if=mbr.bin of=/dev/xxx  (make sure it's not mounted, just in case), where /dev/xxx is your 
+
+Usually mbr.bin will suffice, but there are other choices for nonstandard setups or GPT layouts. They will be described later on.
+The mbr.bin file can be found in the same directory *.c32 syslinux files are on your system.
+
+8. You can now try booting from the device, either on real system or by using qemu. 
+If a syslinux menu shows up, you can start copying over distributions to usb stick. Refer to the next paragraph for instructions.
+ 
+If you are experiencing problems with booting off usb stick, refer to troubleshooting section. Or you could try preparing the device from beginning.
+
 
 HOW DO I PUT MY LIVE DISTRIBUTION FILES ON THE USB
 --------------------------------------------------
-First, you need to unpack the iso image of your livecd. You can use 7zip for that.
+First, you need to access the contents of the iso image of your live distribution of choice. In most cases, p7zip will do just fine.
 
-For instance, by running "7z x file.iso", or by mounting the iso image and copying out the files. Copying files out of the iso with mc often fails, producing 0 length files (KNOPPIX) or not opening the iso at all (system rescue cd). Also, mc has tendency to omit files that start with '.' , which is often important.
+You can extract the iso by running "7z x file.iso", or by mounting the iso image and copying out the files. 
 
-Once you extract the contents of the iso image, check the .cfg file for that distribution for further instructions. For example, for Fedora read fedora.cfg file.
+You can also copy out files out of the iso with mc. But that's not very reliable. It often copies files out as empty, or doesn't display hidden files at all.
+
+Once you extract the contents of the iso image, check the .cfg file for that distribution for further instructions - usually you don't need to copy over everything to the usb. For example, for Fedora read fedora.cfg file.
 
 WHAT'S THAT UUID ? 
 ------------------
 You might notice that some configuration files contain a phrase UUID=SOMEUUID . You will need to fix that manually.
 
-First issue a command 'blkid' with your usb device plugged in to your computer. You should get something like this
+UUID is a unique identifier of a given partition. Even in a setup with lots of disks, it can be used to locate the correct partition quickly.
+
+First issue a command 'blkid' with your usb device plugged in to your computer to see uuids assigned to block devices on your system. 
+
+You should get something like this
 
 (.....)
 /dev/sdc1: UUID="D88E-7075" TYPE="vfat"
+(.....)
 
-Where /dev/sdc1 is the usb device. So the UUID is D88E-7075 . Replace all occurences of SOMEUUID with that value in config files.
+Where /dev/sdc is the usb device. So the UUID of its partition is D88E-7075 . Replace all occurences of SOMEUUID with that value in config files.
 
 Non-fat32 filesystems will have more complex UUID's. Don't worry about that, and proceed normally.
 
 Example : 
 /dev/sda2: LABEL="boot" UUID="e27288df-82eb-44b3-90d3-32ffd6f8c26b" TYPE="ext3"
 
-UUID does not work on CD media. Use label instead, where available.
+NOTE : UUID does not apply to CD media. Use label parameter instead, if possible.
 
 WHAT'S THAT LABEL ?
 -------------------
-some configs specify a SOMELABEL parameter. Replace it with a label of your partition on usb. You can see it in blkid command output, e.g
+some configs specify a SOMELABEL parameter. Replace it with a label of your partition on usb. As before, use the blkid command. 
 
 /dev/sdc1: UUID="D88E-7075" TYPE="vfat" LABEL="MYSUPERUSBPEN"
 
-If your partition does not have a label, you can give it one by doing
+If the LABEL="...." fragment does not appear, a partition does not have a label. In this case, you can assign it one (or change existing one), by doing : 
 
 tune2fs -L somelabel /dev/sdc1  (ext2/ext3)
 dosfslabel /dev/sdc1 somelabel  (fat32)
+
+Make sure the label is fairly unique, so that you avoid the situation where there are multiple partitions with the same label as your usb stick. That could cause boot problems.
+
 
 IT DOES NOT BOOT AT ALL!
 ------------------------
@@ -74,13 +109,13 @@ You can try booting media with qemu, by running :
 
 sudo qemu -hda /dev/sdc 
 
-Where /dev/sdc is the usb device. If it boots, it means that syslinux installation is correct, but there might be a problem with your BIOS. 
+Where /dev/sdc is the usb device. If it boots, it means that syslinux installation is correct, but there might be a problem with your BIOS or partition layout.
 
-Qemu treats device as hard disk. That means that it won't expose any issues related to USB booting, it will simply test if your bootloader installation is correct.
+Qemu treats device as classic hard disk. That means that it won't expose any issues related to USB booting, it will simply test if your bootloader installation is correct.
 
 * The device must not be mounted when testing with qemu ! Otherwise weird things can happen !*
 
-If it doesn't boot under qemu at all, you messed something up. Try reinstalling syslinux/extlinux on the device. If you are using classic partition layout (not GPT), partition should be marked bootable.
+If it doesn't boot under qemu at all, you messed something up. Try reinstalling syslinux/extlinux MBR on the device. If you are using classic partition layout (not GPT), partition should be marked bootable as well.
 
 Other things to try :
 ---------------------
@@ -126,4 +161,4 @@ No USB boot? No problem.
 If your computer cannot boot from usb at all, you could make a livecd/dvd instead. 
 Prepare the directory as usual, read the contents of attached buildcd.sh script for instructions. Make sure your configs do not use UUID parameter. Testing the generated ISO in qemu should provide realistic results.
 
-Some configs will require modifications (e.g puppy linux - pmedia=cd parameter might be necessary).
+Some configs will require modifications (e.g puppy linux - pmedia=cd parameter might be necessary, alpine linux might require change of parameters to load iso9660 modules, etc. ).
