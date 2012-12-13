@@ -1,0 +1,8 @@
+#!ipxe
+
+  dhcp
+
+  initrd   http://download.opensuse.org/distribution/openSUSE-current/repo/oss/boot/x86_64/loader/initrd
+  imgfetch http://download.opensuse.org/distribution/openSUSE-current/repo/oss/boot/x86_64/loader/linux 
+  boot     linux Textmode=1 install=http://download.opensuse.org/distribution/openSUSE-current/repo/oss
+

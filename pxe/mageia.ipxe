@@ -1,0 +1,7 @@
+#!ipxe
+
+  dhcp
+
+  initrd   http://ftp.mandrivauser.de/mirrors/Mageia/distrib/cauldron/i586/isolinux/alt0/all.rdz
+  imgfetch http://ftp.mandrivauser.de/mirrors/Mageia/distrib/cauldron/i586/isolinux/alt0/vmlinuz text
+  boot vmlinuz

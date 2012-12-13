@@ -1,0 +1,92 @@
+#!ipxe
+
+:selection
+
+menu iPXE boot menu
+item debian64		Boot debian 64bit installer
+item debian		Boot debian 32bit installer
+item mageia64		Boot mageia 64bit installer
+item mageia		Boot mageia 32bit installer
+item opensuse64		Boot opensuse 64bit instaler (current version)
+item opensuse		Boot opensuse 32bit instaler (current version)
+item plop		Boot plop boot manager
+item tinycore		Boot tinycore linux
+set menu-timeout 0
+
+item --key x exit
+
+choose system || goto :selection
+
+goto ${system}
+
+
+:debian64
+
+  dhcp
+
+  initrd   http://ftp.pl.debian.org/debian/dists/squeeze/main/installer-amd64/current/images/netboot/debian-installer/amd64/initrd.gz
+  imgfetch http://ftp.pl.debian.org/debian/dists/squeeze/main/installer-amd64/current/images/netboot/debian-installer/amd64/linux
+  boot linux || goto selection
+
+
+:debian
+
+  dhcp
+
+  initrd   http://ftp.pl.debian.org/debian/dists/squeeze/main/installer-i386/current/images/netboot/debian-installer/i386/initrd.gz
+  imgfetch http://ftp.pl.debian.org/debian/dists/squeeze/main/installer-i386/current/images/netboot/debian-installer/i386/linux
+  boot linux || goto selection
+
+
+:mageia64
+  dhcp
+
+  initrd   http://ftp.mandrivauser.de/mirrors/Mageia/distrib/cauldron/x86_64/isolinux/alt0/all.rdz
+  imgfetch http://ftp.mandrivauser.de/mirrors/Mageia/distrib/cauldron/x86_64/isolinux/alt0/vmlinuz
+  boot vmlinuz || goto selection
+
+
+:mageia
+  dhcp
+
+  initrd   http://ftp.mandrivauser.de/mirrors/Mageia/distrib/cauldron/i586/isolinux/alt0/all.rdz
+  imgfetch http://ftp.mandrivauser.de/mirrors/Mageia/distrib/cauldron/i586/isolinux/alt0/vmlinuz text
+  boot vmlinuz || goto selection
+
+
+:opensuse64
+
+  dhcp
+
+  initrd   http://download.opensuse.org/distribution/openSUSE-current/repo/oss/boot/x86_64/loader/initrd
+  imgfetch http://download.opensuse.org/distribution/openSUSE-current/repo/oss/boot/x86_64/loader/linux 
+  boot     linux Textmode=1 install=http://download.opensuse.org/distribution/openSUSE-current/repo/oss || goto selection
+
+:opensuse
+  dhcp
+
+  initrd   http://download.opensuse.org/distribution/openSUSE-current/repo/oss/boot/i386/loader/initrd
+  imgfetch http://download.opensuse.org/distribution/openSUSE-current/repo/oss/boot/i386/loader/linux 
+  boot     linux Textmode=1 install=http://download.opensuse.org/distribution/openSUSE-current/repo/oss || goto selection
+
+:plop
+
+  dhcp 
+  imgfetch http://some_web_server/memdisk
+  initrd http://some_web_server/plpbt.img
+  chain memdisk || goto selection
+
+# for some reason direct boot of plop doesn't seem to work correctly
+# also, memdisk fails when the *.img file is packed with gzip 
+# (which _really_ reduces size)
+
+
+:tinycore
+  dhcp 
+  initrd http://some_web_server/core.gz
+  imgfetch http://some_web_server/vmlinuz
+  boot vmlinuz || goto selection
+
+# all other tinycore args still apply here
+# it's worth setting up a NFS share for your extensions + persistence in this mode
+# to make full use of tinycore's features

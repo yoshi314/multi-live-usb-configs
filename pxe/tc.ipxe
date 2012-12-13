@@ -1,0 +1,9 @@
+#!ipxe
+  dhcp 
+  initrd http://some_web_server/core.gz
+  imgfetch http://some_web_server/vmlinuz
+  boot vmlinuz
+
+# all other tinycore args still apply here
+# it's worth setting up a NFS share for your extensions + persistence in this mode
+# to make full use of tinycore's features

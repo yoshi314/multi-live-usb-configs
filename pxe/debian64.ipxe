@@ -1,0 +1,7 @@
+#!ipxe
+
+  dhcp
+
+  initrd   http://ftp.pl.debian.org/debian/dists/squeeze/main/installer-amd64/current/images/netboot/debian-installer/amd64/initrd.gz
+  imgfetch http://ftp.pl.debian.org/debian/dists/squeeze/main/installer-amd64/current/images/netboot/debian-installer/amd64/linux
+  boot linux
