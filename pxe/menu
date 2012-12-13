@@ -11,9 +11,11 @@ item opensuse64		Boot opensuse 64bit instaler (current version)
 item opensuse		Boot opensuse 32bit instaler (current version)
 item plop		Boot plop boot manager
 item tinycore		Boot tinycore linux
+item --key c config	Configure iPXE
+item --key x exit	Exit iPXE
 set menu-timeout 0
 
-item --key x exit
+
 
 choose system || goto :selection
 
