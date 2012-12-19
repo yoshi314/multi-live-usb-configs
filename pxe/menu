@@ -13,6 +13,7 @@ item plop		Boot plop boot manager
 item tinycore		Boot tinycore linux
 item arch		Boot archlinux installer
 item arch-text		Boot archlinux installer [text mode menu]
+item centos		Boot CentOS installer
 item --key c config	Configure iPXE
 item --key x exit	Exit iPXE
 set menu-timeout 0
@@ -23,6 +24,16 @@ choose system || goto :selection
 
 goto ${system}
 
+
+:centos
+
+  dhcp
+
+  #set this to your preferred mirror
+  set baseurl:string http://mirror.centos.org/centos-6/6.3/os/x86_64/
+
+  initrd ${baseurl:string}isolinux/initrd.img
+  chain  ${baseurl:string}isolinux/vmlinuz repo=${baseurl:string}
 
 :debian64
 
