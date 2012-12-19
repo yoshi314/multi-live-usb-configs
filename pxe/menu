@@ -14,6 +14,7 @@ item tinycore		Boot tinycore linux
 item arch		Boot archlinux installer
 item arch-text		Boot archlinux installer [text mode menu]
 item centos		Boot CentOS installer
+item fedora		Boot Fedora installer
 item --key c config	Configure iPXE
 item --key x exit	Exit iPXE
 set menu-timeout 0
@@ -25,13 +26,17 @@ choose system || goto :selection
 goto ${system}
 
 
+:fedora
+
+  dhcp
+  set 209:string cfg/pxelinux.cfg
+  set 210:string http://dl.fedoraproject.org/pub/alt/bfo/
+  chain ${210:string}pxelinux.0
+
 :centos
 
   dhcp
-
-  #set this to your preferred mirror
   set baseurl:string http://mirror.centos.org/centos-6/6.3/os/x86_64/
-
   initrd ${baseurl:string}isolinux/initrd.img
   chain  ${baseurl:string}isolinux/vmlinuz repo=${baseurl:string}
 
