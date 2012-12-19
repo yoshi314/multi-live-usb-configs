@@ -11,6 +11,8 @@ item opensuse64		Boot opensuse 64bit instaler (current version)
 item opensuse		Boot opensuse 32bit instaler (current version)
 item plop		Boot plop boot manager
 item tinycore		Boot tinycore linux
+item arch		Boot archlinux installer
+item arch-text		Boot archlinux installer [text mode menu]
 item --key c config	Configure iPXE
 item --key x exit	Exit iPXE
 set menu-timeout 0
@@ -92,3 +94,24 @@ goto ${system}
 # all other tinycore args still apply here
 # it's worth setting up a NFS share for your extensions + persistence in this mode
 # to make full use of tinycore's features
+
+
+:arch
+
+  dhcp
+
+# config file name
+  set 209:string cfg/arch.cfg
+# path prefix
+  set 210:string http://releng.archlinux.org/pxeboot/boot/
+  chain ${210:string}pxelinux.0
+
+# other params are documented on http://www.syslinux.org/wiki/index.php/PXELINUX
+
+:arch-text
+
+  dhcp
+  set 209:string cfg/arch_text.cfg
+  set 210:string http://releng.archlinux.org/pxeboot/boot/
+  chain ${210:string}pxelinux.0
+
