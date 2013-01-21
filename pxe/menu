@@ -15,6 +15,8 @@ item arch		Boot archlinux installer
 item arch-text		Boot archlinux installer [text mode menu]
 item centos		Boot CentOS installer
 item fedora		Boot Fedora installer
+item ubuntu		Boot Ubuntu installer
+item ubuntu64		Boot Ubuntu installer [64bit]
 item --key c config	Configure iPXE
 item --key x exit	Exit iPXE
 set menu-timeout 0
@@ -39,6 +41,18 @@ goto ${system}
   set baseurl:string http://mirror.centos.org/centos-6/6.3/os/x86_64/
   initrd ${baseurl:string}isolinux/initrd.img
   chain  ${baseurl:string}isolinux/vmlinuz repo=${baseurl:string}
+
+:ubuntu
+
+  dhcp
+  set 210:string http://archive.ubuntu.com/ubuntu/dists/quantal/main/installer-i386/current/images/netboot/
+  chain ${210:string}pxelinux.0
+
+:ubuntu64
+
+  dhcp
+  set 210:string http://archive.ubuntu.com/ubuntu/dists/quantal/main/installer-amd64/current/images/netboot/
+  chain ${210:string}pxelinux.0
 
 :debian64
 
