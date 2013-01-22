@@ -74,17 +74,19 @@ goto ${system}
 
 :mageia64
   dhcp
+  set baseurl:string http://ftp5.gwdg.de/pub/linux/mageia/distrib/cauldron/x86_64/isolinux/alt0/
 
-  initrd   http://ftp.mandrivauser.de/mirrors/Mageia/distrib/cauldron/x86_64/isolinux/alt0/all.rdz
-  imgfetch http://ftp.mandrivauser.de/mirrors/Mageia/distrib/cauldron/x86_64/isolinux/alt0/vmlinuz
+  initrd   ${baseurl:string}all.rdz
+  imgfetch ${baseurl:string}vmlinuz
   boot vmlinuz || goto selection
 
 
 :mageia
   dhcp
 
-  initrd   http://ftp.mandrivauser.de/mirrors/Mageia/distrib/cauldron/i586/isolinux/alt0/all.rdz
-  imgfetch http://ftp.mandrivauser.de/mirrors/Mageia/distrib/cauldron/i586/isolinux/alt0/vmlinuz text
+  set baseurl:string http://ftp5.gwdg.de/pub/linux/mageia/distrib/cauldron/i586/isolinux/alt0/
+  initrd   ${baseurl:string}all.rdz
+  imgfetch ${baseurl:string}vmlinuz
   boot vmlinuz || goto selection
 
 
