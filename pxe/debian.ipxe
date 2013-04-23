@@ -1,7 +1,0 @@
-#!ipxe
-
-  dhcp
-
-  initrd   http://ftp.pl.debian.org/debian/dists/squeeze/main/installer-i386/current/images/netboot/debian-installer/i386/initrd.gz
-  imgfetch http://ftp.pl.debian.org/debian/dists/squeeze/main/installer-i386/current/images/netboot/debian-installer/i386/linux
-  boot linux
