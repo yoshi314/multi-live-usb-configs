@@ -16,3 +16,9 @@ change to ipxe/src , copy your ipxe menu inside as e.g. mymenufile , and run :
   make EMBED=mymenufile  
 
 This will produce ipxe images with the menu file already embedded. The bin/ipxe.dsk is for floppies, iso for cd, usb for pendrives.
+
+You can generate a specific image with 
+
+  make bin/ipxe.dsk EMBED=mymenufile
+
+(replace for different image accordingly)
