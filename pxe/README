@@ -1,0 +1,18 @@
+quick and dirty howto for custom booting, without syslinux : 
+------------------------------------------------------------
+ipxe can be written to a floppy or into network card rom. This of course negates use of syslinux or other bootloader.
+
+In order to do this, you will need to embed config file into ipxe (or use a generic build and open config menu every netboot)
+
+You will need: ipxe source tree , gcc, make and general development tools.
+
+
+Grab the sources with 
+
+  git clone git clone git://git.ipxe.org/ipxe.git
+
+change to ipxe/src , copy your ipxe menu inside as e.g. mymenufile , and run : 
+
+  make EMBED=mymenufile  
+
+This will produce ipxe images with the menu file already embedded. The bin/ipxe.dsk is for floppies, iso for cd, usb for pendrives.
