@@ -39,7 +39,7 @@ goto ${system}
 :centos
 
   dhcp
-  set baseurl:string http://mirror.centos.org/centos-6/6.3/os/x86_64/
+  set baseurl:string http://mirror.centos.org/centos/6/os/x86_64/
   initrd ${baseurl:string}isolinux/initrd.img
   chain  ${baseurl:string}isolinux/vmlinuz repo=${baseurl:string}
 
