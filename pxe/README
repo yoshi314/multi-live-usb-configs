@@ -9,7 +9,7 @@ You will need: ipxe source tree , gcc, make and general development tools.
 
 Grab the sources with 
 
-  git clone git clone git://git.ipxe.org/ipxe.git
+  git clone git://git.ipxe.org/ipxe.git
 
 change to ipxe/src , copy your ipxe menu inside as e.g. mymenufile , and run : 
 
