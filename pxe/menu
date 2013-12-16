@@ -5,6 +5,8 @@
 menu iPXE boot menu
 item debian64		Boot debian 64bit installer
 item debian		Boot debian 32bit installer
+item debian64gui	Boot debian 64bit installer [gtk]
+item debiangui		Boot debian 32bit installer [gtk]
 item mageia64		Boot mageia 64bit installer
 item mageia		Boot mageia 32bit installer
 item opensuse64		Boot opensuse 64bit instaler (current version)
@@ -58,20 +60,26 @@ goto ${system}
 :debian64
 
   dhcp
-
-  initrd   http://ftp.pl.debian.org/debian/dists/squeeze/main/installer-amd64/current/images/netboot/debian-installer/amd64/initrd.gz
-  imgfetch http://ftp.pl.debian.org/debian/dists/squeeze/main/installer-amd64/current/images/netboot/debian-installer/amd64/linux
-  boot linux || goto selection
-
+  set 210:string http://ftp.pl.debian.org/debian/dists/Debian7.3/main/installer-amd64/current/images/netboot/
+  chain ${210:string}pxelinux.0
 
 :debian
 
   dhcp
+  set 210:string http://ftp.pl.debian.org/debian/dists/Debian7.3/main/installer-i386/current/images/netboot/
+  chain ${210:string}pxelinux.0
 
-  initrd   http://ftp.pl.debian.org/debian/dists/squeeze/main/installer-i386/current/images/netboot/debian-installer/i386/initrd.gz
-  imgfetch http://ftp.pl.debian.org/debian/dists/squeeze/main/installer-i386/current/images/netboot/debian-installer/i386/linux
-  boot linux || goto selection
+:debian64gui
 
+  dhcp
+  set 210:string http://ftp.pl.debian.org/debian/dists/Debian7.3/main/installer-amd64/current/images/netboot/gtk/
+  chain ${210:string}pxelinux.0
+
+:debiangui
+
+  dhcp
+  set 210:string http://ftp.pl.debian.org/debian/dists/Debian7.3/main/installer-i386/current/images/netboot/gtk/
+  chain ${210:string}pxelinux.0
 
 :mageia64
   dhcp
