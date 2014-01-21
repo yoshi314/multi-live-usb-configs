@@ -11,6 +11,7 @@ item mageia64		Boot mageia 64bit installer
 item mageia		Boot mageia 32bit installer
 item opensuse64		Boot opensuse 64bit instaler (current version)
 item opensuse		Boot opensuse 32bit instaler (current version)
+item opensuse114	Boot opensuse 11.4 32bit installer
 item plop		Boot plop boot manager
 item tinycore		Boot tinycore linux
 item tinycore64		Boot tinycore linux [64bit]
@@ -93,7 +94,7 @@ goto ${system}
 :mageia
   dhcp
 
-  set baseurl:string http://ftp5.gwdg.de/pub/linux/mageia/distrib/cauldron/i586/isolinux/i586/
+  set baseurl:string http://ftp5.gwdg.de/pub/linux/mageia/distrib/cauldron/i586/isolinux/i386/
   initrd   ${baseurl:string}all.rdz
   imgfetch ${baseurl:string}vmlinuz
   boot vmlinuz || goto selection
@@ -114,6 +115,13 @@ goto ${system}
   imgfetch http://download.opensuse.org/distribution/openSUSE-current/repo/oss/boot/i386/loader/linux 
   boot     linux Textmode=1 install=http://download.opensuse.org/distribution/openSUSE-current/repo/oss || goto selection
 
+:opensuse114
+  dhcp
+
+  initrd   http://ftp.icm.edu.pl/pub/Linux/opensuse/distribution/11.4/repo/oss/boot/i386/loader/initrd
+  imgfetch http://ftp.icm.edu.pl/pub/Linux/opensuse/distribution/11.4/repo/oss/boot/i386/loader/linux 
+  boot     linux Textmode=1 install=http://ftp.icm.edu.pl/pub/Linux/opensuse/distribution/11.4/repo/oss || goto selection
+
 :plop
 
   dhcp 
@@ -128,8 +136,8 @@ goto ${system}
 
 :tinycore
   dhcp 
-  initrd http://repo.tinycorelinux.net/4.x/x86/release/distribution_files/core.gz
-  imgfetch http://repo.tinycorelinux.net/4.x/x86/release/distribution_files/vmlinuz
+  initrd http://repo.tinycorelinux.net/5.x/x86/release/distribution_files/core.gz
+  imgfetch http://repo.tinycorelinux.net/5.x/x86/release/distribution_files/vmlinuz
   boot vmlinuz || goto selection
 
 # all other tinycore args still apply here
@@ -138,8 +146,8 @@ goto ${system}
 
 :tinycore64
   dhcp
-  initrd http://repo.tinycorelinux.net/4.x/x86/release/distribution_files/core64.gz
-  imgfetch http://repo.tinycorelinux.net/4.x/x86/release/distribution_files/vmlinuz64
+  initrd http://repo.tinycorelinux.net/5.x/x86/release/distribution_files/core64.gz
+  imgfetch http://repo.tinycorelinux.net/5.x/x86/release/distribution_files/vmlinuz64
   boot vmlinuz64 || goto selection
 
 
