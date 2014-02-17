@@ -21,6 +21,12 @@ item centos		Boot CentOS installer
 item fedora		Boot Fedora installer
 item ubuntu		Boot Ubuntu installer
 item ubuntu64		Boot Ubuntu installer [64bit]
+item slitaz		Boot SliTaz
+item slitaz-rolling	Boot SliTaz [rolling]
+
+
+
+
 item --key c config	Configure iPXE
 item --key x exit	Exit iPXE
 set menu-timeout 0
@@ -31,6 +37,19 @@ choose system || goto :selection
 
 goto ${system}
 
+
+:slitaz
+  dhcp
+  set weburl http://mirror.slitaz.org/pxe/
+  set 210:string ${weburl} && chain ${weburl}pxelinux.0 && boot ||
+  set weburl http://mirror.switch.ch/ftp/mirror/slitaz/pxe/
+  set 210:string ${weburl} && chain ${weburl}pxelinux.0 && boot ||
+  set weburl http://download.tuxfamily.org/slitaz/pxe/
+  set 210:string ${weburl} && chain ${weburl}pxelinux.0 && boot 
+
+:slitaz-rolling
+  dhcp
+  sanboot http://mirror.slitaz.org/iso/rolling/slitaz-rolling.iso
 
 :fedora
 
