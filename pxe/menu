@@ -76,13 +76,13 @@ goto ${system}
 :ubuntu
 
   dhcp
-  set 210:string http://archive.ubuntu.com/ubuntu/dists/saucy/main/installer-i386/current/images/netboot/
+  set 210:string http://archive.ubuntu.com/ubuntu/dists/trusty/main/installer-i386/current/images/netboot/
   chain ${210:string}pxelinux.0
 
 :ubuntu64
 
   dhcp
-  set 210:string http://archive.ubuntu.com/ubuntu/dists/saucy/main/installer-amd64/current/images/netboot/
+  set 210:string http://archive.ubuntu.com/ubuntu/dists/trusty/main/installer-amd64/current/images/netboot/
   chain ${210:string}pxelinux.0
 
 :debian64
