@@ -4,7 +4,7 @@ INSTALLATION
 ------------
 0. You will need :
 - a linux system
-- syslinux (preferably 4.xx) installed on your linux system, along with mtools.
+- syslinux (preferably 4.xx or newer) installed on your linux system, along with mtools.
 - a usb flash drive or a blank cd/dvd disk
 - iso files of at least one supported distribution
 
