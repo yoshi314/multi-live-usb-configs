@@ -9,9 +9,11 @@ item debian64gui	Boot debian 64bit installer [gtk]
 item debiangui		Boot debian 32bit installer [gtk]
 item mageia64		Boot mageia 64bit installer
 item mageia		Boot mageia 32bit installer
-item opensuse64		Boot opensuse 64bit instaler (current version)
-item opensuse		Boot opensuse 32bit instaler (current version)
+item opensuse64		Boot opensuse 64bit installer (current version)
+item opensuse		Boot opensuse 32bit installer (current version)
 item opensuse114	Boot opensuse 11.4 32bit installer
+item opensusef64	Boot opensuse Factory 64bit installer
+item opensusef32	Boot opensuse Factory 32bit installer
 item plop		Boot plop boot manager
 item tinycore		Boot tinycore linux
 item tinycore64		Boot tinycore linux [64bit]
@@ -128,12 +130,28 @@ goto ${system}
 
 
 :opensuse64
-
   dhcp
 
   initrd   http://download.opensuse.org/distribution/openSUSE-current/repo/oss/boot/x86_64/loader/initrd
   imgfetch http://download.opensuse.org/distribution/openSUSE-current/repo/oss/boot/x86_64/loader/linux 
   boot     linux Textmode=1 install=http://download.opensuse.org/distribution/openSUSE-current/repo/oss || goto selection
+
+:opensusef64
+
+  dhcp
+
+  initrd   http://download.opensuse.org/factory/repo/oss/boot/x86_64/loader/initrd
+  imgfetch http://download.opensuse.org/factory/repo/oss/boot/x86_64/loader/linux 
+  boot     linux Textmode=1 install=http://download.opensuse.org/factory/repo/oss || goto selection
+
+
+:opensusef32
+  dhcp
+
+  initrd   http://download.opensuse.org/factory/repo/oss/boot/i386/loader/initrd
+  imgfetch http://download.opensuse.org/factory/repo/oss/boot/i386/loader/linux 
+  boot     linux Textmode=1 install=http://download.opensuse.org/factory/repo/oss || goto selection
+
 
 :opensuse
   dhcp
