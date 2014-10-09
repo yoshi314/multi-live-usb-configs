@@ -131,41 +131,44 @@ goto ${system}
 
 :opensuse64
   dhcp
+  set baseurl:string http://ftp.icm.edu.pl/pub/Linux/opensuse/distribution/openSUSE-current
+  set arch:string x86_64
+  goto opensuse-generic-boot
 
-  initrd   http://download.opensuse.org/distribution/openSUSE-current/repo/oss/boot/x86_64/loader/initrd
-  imgfetch http://download.opensuse.org/distribution/openSUSE-current/repo/oss/boot/x86_64/loader/linux 
-  boot     linux Textmode=1 install=http://download.opensuse.org/distribution/openSUSE-current/repo/oss || goto selection
 
 :opensusef64
 
   dhcp
-
-  initrd   http://download.opensuse.org/factory/repo/oss/boot/x86_64/loader/initrd
-  imgfetch http://download.opensuse.org/factory/repo/oss/boot/x86_64/loader/linux 
-  boot     linux Textmode=1 install=http://download.opensuse.org/factory/repo/oss || goto selection
+  set baseurl:string http://ftp.icm.edu.pl/pub/Linux/opensuse/factory
+  set arch:string x86_64
+  goto opensuse-generic-boot
 
 
 :opensusef32
   dhcp
-
-  initrd   http://download.opensuse.org/factory/repo/oss/boot/i386/loader/initrd
-  imgfetch http://download.opensuse.org/factory/repo/oss/boot/i386/loader/linux 
-  boot     linux Textmode=1 install=http://download.opensuse.org/factory/repo/oss || goto selection
+  set baseurl:string http://ftp.icm.edu.pl/pub/Linux/opensuse/factory
+  set arch:string i386
+  goto opensuse-generic-boot
 
 
 :opensuse
   dhcp
+  set baseurl:string http://ftp.icm.edu.pl/pub/Linux/opensuse/distribution/openSUSE-current
+  set arch:string i386
+  goto opensuse-generic-boot
 
-  initrd   http://download.opensuse.org/distribution/openSUSE-current/repo/oss/boot/i386/loader/initrd
-  imgfetch http://download.opensuse.org/distribution/openSUSE-current/repo/oss/boot/i386/loader/linux 
-  boot     linux Textmode=1 install=http://download.opensuse.org/distribution/openSUSE-current/repo/oss || goto selection
 
 :opensuse114
   dhcp
+  set baseurl:string http://ftp.icm.edu.pl/pub/Linux/opensuse/distribution/11.4
+  set arch:string i386
+  goto opensuse-generic-boot
 
-  initrd   http://ftp.icm.edu.pl/pub/Linux/opensuse/distribution/11.4/repo/oss/boot/i386/loader/initrd
-  imgfetch http://ftp.icm.edu.pl/pub/Linux/opensuse/distribution/11.4/repo/oss/boot/i386/loader/linux 
-  boot     linux Textmode=1 install=http://ftp.icm.edu.pl/pub/Linux/opensuse/distribution/11.4/repo/oss || goto selection
+:opensuse-generic-boot
+
+  initrd   ${baseurl:string}/repo/oss/boot/${arch:string}/loader/initrd
+  imgfetch ${baseurl:string}/repo/oss/boot/${arch:string}/loader/linux 
+  boot     linux Textmode=1 install=${baseurl:string}/repo/oss || goto selection
 
 :plop
 
