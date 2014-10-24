@@ -100,14 +100,12 @@ goto ${system}
 :ubuntu
 
   dhcp
-  set 209:string pxelinux.cfg/default
   set 210:string http://archive.ubuntu.com/ubuntu/dists/utopic/main/installer-i386/current/images/netboot/
   chain ${210:string}pxelinux.0
 
 :ubuntu64
 
   dhcp
-  set 209:string pxelinux.cfg/default
   set 210:string http://archive.ubuntu.com/ubuntu/dists/utopic/main/installer-amd64/current/images/netboot/
   chain ${210:string}pxelinux.0
 
