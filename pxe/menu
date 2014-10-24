@@ -90,15 +90,24 @@ goto ${system}
   initrd ${baseurl:string}isolinux/initrd.img
   chain  ${baseurl:string}isolinux/vmlinuz repo=${baseurl:string}
 
+
+#
+# utopic is currently broken, use syslinux menu with downloaded kernel and initrd instead for now
+# changed it anyway, maybe it will get fixed
+# https://bugs.launchpad.net/ubuntu/+source/syslinux/+bug/1385069
+#
+
 :ubuntu
 
   dhcp
+  set 209:string pxelinux.cfg/default
   set 210:string http://archive.ubuntu.com/ubuntu/dists/utopic/main/installer-i386/current/images/netboot/
   chain ${210:string}pxelinux.0
 
 :ubuntu64
 
   dhcp
+  set 209:string pxelinux.cfg/default
   set 210:string http://archive.ubuntu.com/ubuntu/dists/utopic/main/installer-amd64/current/images/netboot/
   chain ${210:string}pxelinux.0
 
