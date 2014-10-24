@@ -17,6 +17,8 @@ item opensusef32	Boot opensuse Factory 32bit installer
 item plop		Boot plop boot manager
 item tinycore		Boot tinycore linux
 item tinycore64		Boot tinycore linux [64bit]
+item dcore-trusty	Boot dCore (ubuntu trusty version)
+item dcore-jessie	Boot dCore (debian jessie version)
 item arch		Boot archlinux installer
 item arch-text		Boot archlinux installer [text mode menu]
 item centos		Boot CentOS installer
@@ -27,8 +29,6 @@ item ubuntu		Boot Ubuntu installer
 item ubuntu64		Boot Ubuntu installer [64bit]
 item slitaz		Boot SliTaz
 item slitaz-rolling	Boot SliTaz [rolling]
-
-
 
 
 item --key c config	Configure iPXE
@@ -220,6 +220,20 @@ goto ${system}
   imgfetch http://repo.tinycorelinux.net/5.x/x86/release/distribution_files/vmlinuz64
   boot vmlinuz64 || goto selection
 
+
+:dcore-trusty
+
+  dhcp
+  initrd http://tinycorelinux.net/5.x/x86/release_candidates/ub-dCore-trusty/ub-dCore-trusty.gz
+  imgfetch http://tinycorelinux.net/5.x/x86/release_candidates/ub-dCore-trusty/vmlinuz-trusty
+  boot vmlinuz-trusty || goto selection
+
+
+:dcore-jessie
+  dhcp
+  initrd http://tinycorelinux.net/5.x/x86/release_candidates/dCore-jessie/dCore-jessie.gz
+  imgfetch http://tinycorelinux.net/5.x/x86/release_candidates/dCore-jessie/vmlinuz-jessie
+  boot vmlinuz-jessie || goto selection
 
 :arch
 
