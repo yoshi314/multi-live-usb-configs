@@ -104,17 +104,28 @@ goto ${system}
 # https://bugs.launchpad.net/ubuntu/+source/syslinux/+bug/1385069
 #
 
+
+#
+# as a workaround, load pxelinux from older ubuntu 
+# and then load subsequent files from current release
+# it will fail to load menu module, but if you press TAB
+# you can get hints on available commands and kick off the install
+# usually just typing in 'install' is all you need on that prompt
+#
+
 :ubuntu
 
   dhcp
   set 210:string http://archive.ubuntu.com/ubuntu/dists/utopic/main/installer-i386/current/images/netboot/
-  chain ${210:string}pxelinux.0
+# chain ${210:string}pxelinux.0
+  chain http://archive.ubuntu.com/ubuntu/dists/trusty/main/installer-i386/current/images/netboot/pxelinux.0
 
 :ubuntu64
 
   dhcp
   set 210:string http://archive.ubuntu.com/ubuntu/dists/utopic/main/installer-amd64/current/images/netboot/
-  chain ${210:string}pxelinux.0
+# chain ${210:string}pxelinux.0
+  chain http://archive.ubuntu.com/ubuntu/dists/trusty/main/installer-amd64/current/images/netboot/pxelinux.0
 
 :debian64
 
