@@ -18,7 +18,8 @@ item opensusef64	Boot opensuse Factory 64bit installer
 item opensusef32	Boot opensuse Factory 32bit installer
 item plop		Boot plop boot manager
 item tinycore		Boot tinycore linux
-item tinycore64		Boot tinycore linux [64bit]
+item tinycore64		Boot tinycore linux [64bit kernel only]
+item tinycore64pure	Boot tinycore linux [fully 64bit version, pure64]
 item dcore-trusty	Boot dCore (ubuntu trusty version)
 item dcore-wheezy	Boot dCore (debian wheezy version)
 item arch		Boot archlinux installer
@@ -239,33 +240,43 @@ goto ${system}
 
 :tinycore
   dhcp 
-  initrd http://repo.tinycorelinux.net/5.x/x86/release/distribution_files/core.gz
-  imgfetch http://repo.tinycorelinux.net/5.x/x86/release/distribution_files/vmlinuz
+  initrd http://repo.tinycorelinux.net/6.x/x86/release/distribution_files/core.gz
+  imgfetch http://repo.tinycorelinux.net/6.x/x86/release/distribution_files/vmlinuz
   boot vmlinuz || goto selection
 
 # all other tinycore args still apply here
 # it's worth setting up a NFS share for your extensions + persistence in this mode
 # to make full use of tinycore's features
 
+# alternately you can load vmlinuz + rootfs.gz + modules.gz , for easier customization
+# if you use your custom server
+
+
 :tinycore64
   dhcp
-  initrd http://repo.tinycorelinux.net/5.x/x86/release/distribution_files/core64.gz
-  imgfetch http://repo.tinycorelinux.net/5.x/x86/release/distribution_files/vmlinuz64
+  initrd http://repo.tinycorelinux.net/6.x/x86/release/distribution_files/core64.gz
+  imgfetch http://repo.tinycorelinux.net/6.x/x86/release/distribution_files/vmlinuz64
   boot vmlinuz64 || goto selection
 
+
+:tinycore64pure
+  dhcp
+  initrd http://repo.tinycorelinux.net/6.x/x86_64/release/distribution_files/corepure64.gz
+  imgfetch http://repo.tinycorelinux.net/6.x/x86_64/release/distribution_files/vmlinuz64
+  boot vmlinuz64 || goto selection
 
 :dcore-trusty
 
   dhcp
-  initrd http://tinycorelinux.net/5.x/x86/release_candidates/ub-dCore-trusty/ub-dCore-trusty.gz
-  imgfetch http://tinycorelinux.net/5.x/x86/release_candidates/ub-dCore-trusty/vmlinuz-trusty
+  initrd http://tinycorelinux.net/6.x/x86/release_candidates/ub-dCore-trusty/ub-dCore-trusty.gz
+  imgfetch http://tinycorelinux.net/6.x/x86/release_candidates/ub-dCore-trusty/vmlinuz-trusty
   boot vmlinuz-trusty || goto selection
 
 
 :dcore-wheezy
   dhcp
-  initrd http://tinycorelinux.net/5.x/x86/release_candidates/dCore-wheezy/dCore-wheezy.gz
-  imgfetch http://tinycorelinux.net/5.x/x86/release_candidates/dCore-wheezy/vmlinuz-wheezy
+  initrd http://tinycorelinux.net/6.x/x86/release_candidates/dCore-wheezy/dCore-wheezy.gz
+  imgfetch http://tinycorelinux.net/6.x/x86/release_candidates/dCore-wheezy/vmlinuz-wheezy
   boot vmlinuz-wheezy || goto selection
 
 :arch
