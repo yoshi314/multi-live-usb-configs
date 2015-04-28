@@ -20,7 +20,7 @@ item plop		Boot plop boot manager
 item tinycore		Boot tinycore linux
 item tinycore64		Boot tinycore linux [64bit kernel only]
 item tinycore64pure	Boot tinycore linux [fully 64bit version, pure64]
-item dcore-trusty	Boot dCore (ubuntu trusty version)
+item dcore-wheezyy	Boot dCore (debian wheezy version)
 item dcore-jessie	Boot dCore (debian jessie version)
 item arch		Boot archlinux installer
 item arch-text		Boot archlinux installer [text mode menu]
@@ -117,16 +117,22 @@ goto ${system}
 :ubuntu
 
   dhcp
-  set 210:string http://archive.ubuntu.com/ubuntu/dists/vivid/main/installer-i386/current/images/netboot/
-# chain ${210:string}pxelinux.0
-  chain http://archive.ubuntu.com/ubuntu/dists/trusty/main/installer-i386/current/images/netboot/pxelinux.0
+  set 210:string http://archive.ubuntu.com/ubuntu/dists/vivid/main/installer-i386/current/images/netboot/ubuntu-installer/i386/
+#  set 210:string http://archive.ubuntu.com/ubuntu/dists/vivid/main/installer-i386/current/images/netboot/
+#  chain ${210:string}pxelinux.0
+#  chain http://archive.ubuntu.com/ubuntu/dists/trusty/main/installer-i386/current/images/netboot/pxelinux.0
+  initrd ${210:string}initrd.gz
+  chain ${210:string}linux
 
 :ubuntu64
 
   dhcp
-  set 210:string http://archive.ubuntu.com/ubuntu/dists/vivid/main/installer-amd64/current/images/netboot/
-# chain ${210:string}pxelinux.0
-  chain http://archive.ubuntu.com/ubuntu/dists/trusty/main/installer-amd64/current/images/netboot/pxelinux.0
+  set 210:string http://archive.ubuntu.com/ubuntu/dists/vivid/main/installer-amd64/current/images/netboot/ubuntu-installer/amd64/
+#  set 210:string http://archive.ubuntu.com/ubuntu/dists/vivid/main/installer-amd64/current/images/netboot/
+#  chain ${210:string}pxelinux.0
+#  chain http://archive.ubuntu.com/ubuntu/dists/trusty/main/installer-amd64/current/images/netboot/pxelinux.0
+  initrd ${210:string}initrd.gz
+  chain ${210:string}linux
 
 
 #
@@ -279,18 +285,18 @@ goto ${system}
   imgfetch http://repo.tinycorelinux.net/6.x/x86_64/release/distribution_files/vmlinuz64
   boot vmlinuz64 || goto selection
 
-:dcore-trusty
+:dcore-wheezy
 
   dhcp
-  initrd http://tinycorelinux.net/6.x/x86/release_candidates/ub-dCore-trusty/ub-dCore-trusty.gz
-  imgfetch http://tinycorelinux.net/6.x/x86/release_candidates/ub-dCore-trusty/vmlinuz-trusty
-  boot vmlinuz-trusty || goto selection
+  initrd http://tinycorelinux.net/dCore/x86/release/dCore-wheezy/dCore-wheezy.gz
+  imgfetch http://tinycorelinux.net/dCore/x86/release/dCore-wheezy/vmlinuz-wheezy
+  boot vmlinuz-wheezy || goto selection
 
 
 :dcore-jessie
   dhcp
-  initrd http://tinycorelinux.net/6.x/x86/release_candidates/dCore-jessie/dCore-jessie.gz
-  imgfetch http://tinycorelinux.net/6.x/x86/release_candidates/dCore-jessie/vmlinuz-jessie
+  initrd http://tinycorelinux.net/dCore/x86/release/dCore-jessie/dCore-jessie.gz
+  imgfetch http://tinycorelinux.net/dCore/x86/release/dCore-jessie/vmlinuz-jessie
   boot vmlinuz-jessie || goto selection
 
 :arch
