@@ -20,7 +20,7 @@ item plop		Boot plop boot manager
 item tinycore		Boot tinycore linux
 item tinycore64		Boot tinycore linux [64bit kernel only]
 item tinycore64pure	Boot tinycore linux [fully 64bit version, pure64]
-item dcore-wheezyy	Boot dCore (debian wheezy version)
+item dcore-wheezy	Boot dCore (debian wheezy version)
 item dcore-jessie	Boot dCore (debian jessie version)
 item arch		Boot archlinux installer
 item arch-text		Boot archlinux installer [text mode menu]
