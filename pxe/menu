@@ -22,6 +22,9 @@ item tinycore64		Boot tinycore linux [64bit kernel only]
 item tinycore64pure	Boot tinycore linux [fully 64bit version, pure64]
 item dcore-wheezy	Boot dCore (debian wheezy version)
 item dcore-jessie	Boot dCore (debian jessie version)
+item dcore-trusty	Boot dCore (ubuntu trusty version, 14.04)
+item dcore-utopic	Boot dCore (ubuntu utopic version, 14.10)
+item dcore-vivid	Boot dCore (ubuntu vivid  version, 15.04)
 item arch		Boot archlinux installer
 item arch-text		Boot archlinux installer [text mode menu]
 item centos		Boot CentOS installer
@@ -298,6 +301,27 @@ goto ${system}
   initrd http://tinycorelinux.net/dCore/x86/release/dCore-jessie/dCore-jessie.gz
   imgfetch http://tinycorelinux.net/dCore/x86/release/dCore-jessie/vmlinuz-jessie
   boot vmlinuz-jessie || goto selection
+
+:dcore-trusty
+
+  dhcp
+  initrd http://tinycorelinux.net/dCore/x86/release/dCore-trusty/dCore-wheezy.gz
+  imgfetch http://tinycorelinux.net/dCore/x86/release/dCore-trusty/vmlinuz-wheezy
+  boot vmlinuz-trusty || goto selection
+
+:dcore-utopic
+
+  dhcp
+  initrd http://tinycorelinux.net/dCore/x86/release/dCore-utopic/dCore-wheezy.gz
+  imgfetch http://tinycorelinux.net/dCore/x86/release/dCore-utopic/vmlinuz-wheezy
+  boot vmlinuz-utopic || goto selection
+
+:dcore-vivid
+
+  dhcp
+  initrd http://tinycorelinux.net/dCore/x86/release/dCore-vivid/dCore-wheezy.gz
+  imgfetch http://tinycorelinux.net/dCore/x86/release/dCore-vivid/vmlinuz-wheezy
+  boot vmlinuz-vivid || goto selection
 
 :arch
 
