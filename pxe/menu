@@ -305,22 +305,22 @@ goto ${system}
 :dcore-trusty
 
   dhcp
-  initrd http://tinycorelinux.net/dCore/x86/release/dCore-trusty/dCore-wheezy.gz
-  imgfetch http://tinycorelinux.net/dCore/x86/release/dCore-trusty/vmlinuz-wheezy
+  initrd http://tinycorelinux.net/dCore/x86/release/dCore-trusty/dCore-trusty.gz
+  imgfetch http://tinycorelinux.net/dCore/x86/release/dCore-trusty/vmlinuz-trusty
   boot vmlinuz-trusty || goto selection
 
 :dcore-utopic
 
   dhcp
-  initrd http://tinycorelinux.net/dCore/x86/release/dCore-utopic/dCore-wheezy.gz
-  imgfetch http://tinycorelinux.net/dCore/x86/release/dCore-utopic/vmlinuz-wheezy
+  initrd http://tinycorelinux.net/dCore/x86/release/dCore-utopic/dCore-utopic.gz
+  imgfetch http://tinycorelinux.net/dCore/x86/release/dCore-utopic/vmlinuz-utopic
   boot vmlinuz-utopic || goto selection
 
 :dcore-vivid
 
   dhcp
-  initrd http://tinycorelinux.net/dCore/x86/release/dCore-vivid/dCore-wheezy.gz
-  imgfetch http://tinycorelinux.net/dCore/x86/release/dCore-vivid/vmlinuz-wheezy
+  initrd http://tinycorelinux.net/dCore/x86/release/dCore-vivid/dCore-vivid.gz
+  imgfetch http://tinycorelinux.net/dCore/x86/release/dCore-vivid/vmlinuz-vivid
   boot vmlinuz-vivid || goto selection
 
 :arch
