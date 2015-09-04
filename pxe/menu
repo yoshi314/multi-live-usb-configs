@@ -16,6 +16,7 @@ item opensuset		Boot opensuse 32bit installer (tumbleweed)
 item opensuse114	Boot opensuse 11.4 32bit installer
 item opensusef64	Boot opensuse Factory 64bit installer
 item opensusef32	Boot opensuse Factory 32bit installer
+item opensuseleap	Boot opensuse Leap installer
 item plop		Boot plop boot manager
 item tinycore		Boot tinycore linux
 item tinycore64		Boot tinycore linux [64bit kernel only]
@@ -215,6 +216,11 @@ goto ${system}
   set arch:string i386
   goto opensuse-generic-boot
 
+:opensuseleap
+  dhcp
+  set baseurl:string http://ftp.icm.edu.pl/pub/Linux/opensuse/distribution/leap/42.1-Current
+  set arch:string x86_64
+  goto opensuse-generic-boot
 
 :opensuse
   dhcp
