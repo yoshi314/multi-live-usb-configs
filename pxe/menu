@@ -218,7 +218,7 @@ goto ${system}
 
 :opensuseleap
   dhcp
-  set baseurl:string http://ftp.icm.edu.pl/pub/Linux/opensuse/distribution/leap/42.1-Current
+  set baseurl:string http://ftp.icm.edu.pl/pub/Linux/opensuse/distribution/leap/42.1
   set arch:string x86_64
   goto opensuse-generic-boot
 
