@@ -17,6 +17,8 @@ item opensuse114	Boot opensuse 11.4 32bit installer
 item opensusef64	Boot opensuse Factory 64bit installer
 item opensusef32	Boot opensuse Factory 32bit installer
 item opensuseleap	Boot opensuse Leap installer
+item opensuset 	Boot opensuse Tumbleweed 32bit
+item opensuset64 	Boot opensuse Tumbleweed 64bit
 item plop		Boot plop boot manager
 item tinycore		Boot tinycore linux
 item tinycore64		Boot tinycore linux [64bit kernel only]
@@ -238,7 +240,7 @@ goto ${system}
 
 :opensuset
   dhcp
-  set baseurl:string http://ftp.icm.edu.pl/pub/Linux/opensuse/tumbleweed/
+  set baseurl:string http://download.opensuse.org/tumbleweed
   set arch:string i386
   goto opensuse-generic-boot
 
@@ -283,15 +285,15 @@ goto ${system}
 
 :tinycore64
   dhcp
-  initrd http://repo.tinycorelinux.net/6.x/x86/release/distribution_files/core64.gz
-  imgfetch http://repo.tinycorelinux.net/6.x/x86/release/distribution_files/vmlinuz64
+  initrd http://repo.tinycorelinux.net/7.x/x86/release/distribution_files/core64.gz
+  imgfetch http://repo.tinycorelinux.net/7.x/x86/release/distribution_files/vmlinuz64
   boot vmlinuz64 || goto selection
 
 
 :tinycore64pure
   dhcp
-  initrd http://repo.tinycorelinux.net/6.x/x86_64/release/distribution_files/corepure64.gz
-  imgfetch http://repo.tinycorelinux.net/6.x/x86_64/release/distribution_files/vmlinuz64
+  initrd http://repo.tinycorelinux.net/7.x/x86_64/release/distribution_files/corepure64.gz
+  imgfetch http://repo.tinycorelinux.net/7.x/x86_64/release/distribution_files/vmlinuz64
   boot vmlinuz64 || goto selection
 
 :dcore-wheezy
