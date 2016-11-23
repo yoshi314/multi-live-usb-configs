@@ -33,7 +33,8 @@ item arch-text		Boot archlinux installer [text mode menu]
 item centos		Boot CentOS installer
 item scientific		Boot Scientific Linux installer
 item fedora		Boot Fedora installer
-item fedora-mirror	Boot Fedora installer [mirror]
+item fedora-mirror	Boot Fedora installer Server edition [mirror]
+item fedora-mirror-workstation Boot Fedora installer Workstation edition [mirror]
 item ubuntu		Boot Ubuntu installer
 item ubuntu64		Boot Ubuntu installer [64bit]
 item slitaz		Boot SliTaz
@@ -93,9 +94,17 @@ goto ${system}
 
   dhcp
 
-  set baseurl:string http://ftp.icm.edu.pl/pub/Linux/fedora/linux//releases/23/Server/x86_64/os
+  set baseurl:string http://ftp.icm.edu.pl/pub/Linux/fedora/linux/releases/25/Server/x86_64/os
   initrd ${baseurl:string}/images/pxeboot/initrd.img
   chain  ${baseurl:string}/images/pxeboot/vmlinuz repo=${baseurl:string}
+
+:fedora-mirror-workstation
+  dhcp
+
+  set baseurl:string http://ftp.icm.edu.pl/pub/Linux/fedora/linux/releases/25/Workstation/x86_64/os
+  initrd ${baseurl:string}/images/pxeboot/initrd.img
+  chain  ${baseurl:string}/images/pxeboot/vmlinuz repo=${baseurl:string}
+
 
 :centos
 
@@ -123,7 +132,7 @@ goto ${system}
 :ubuntu
 
   dhcp
-  set 210:string http://archive.ubuntu.com/ubuntu/dists/wily/main/installer-i386/current/images/netboot/ubuntu-installer/i386/
+  set 210:string http://archive.ubuntu.com/ubuntu/dists/xenial/main/installer-i386/current/images/netboot/ubuntu-installer/i386/
 #  set 210:string http://archive.ubuntu.com/ubuntu/dists/wily/main/installer-i386/current/images/netboot/
 #  chain ${210:string}pxelinux.0
 #  chain http://archive.ubuntu.com/ubuntu/dists/trusty/main/installer-i386/current/images/netboot/pxelinux.0
@@ -133,7 +142,7 @@ goto ${system}
 :ubuntu64
 
   dhcp
-  set 210:string http://archive.ubuntu.com/ubuntu/dists/wily/main/installer-amd64/current/images/netboot/ubuntu-installer/amd64/
+  set 210:string http://archive.ubuntu.com/ubuntu/dists/xenial/main/installer-amd64/current/images/netboot/ubuntu-installer/amd64/
 #  set 210:string http://archive.ubuntu.com/ubuntu/dists/wily/main/installer-amd64/current/images/netboot/
 #  chain ${210:string}pxelinux.0
 #  chain http://archive.ubuntu.com/ubuntu/dists/wily/main/installer-amd64/current/images/netboot/pxelinux.0
@@ -271,8 +280,8 @@ goto ${system}
 
 :tinycore
   dhcp 
-  initrd http://repo.tinycorelinux.net/6.x/x86/release/distribution_files/core.gz
-  imgfetch http://repo.tinycorelinux.net/6.x/x86/release/distribution_files/vmlinuz
+  initrd http://repo.tinycorelinux.net/7.x/x86/release/distribution_files/core.gz
+  imgfetch http://repo.tinycorelinux.net/7.x/x86/release/distribution_files/vmlinuz
   boot vmlinuz || goto selection
 
 # all other tinycore args still apply here
