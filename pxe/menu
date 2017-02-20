@@ -13,7 +13,6 @@ item opensuse64		Boot opensuse 64bit installer (current version)
 item opensuse		Boot opensuse 32bit installer (current version)
 item opensuset64	Boot opensuse 64bit installer (tumbleweed)
 item opensuset		Boot opensuse 32bit installer (tumbleweed)
-item opensuse114	Boot opensuse 11.4 32bit installer
 item opensusef64	Boot opensuse Factory 64bit installer
 item opensusef32	Boot opensuse Factory 32bit installer
 item opensuseleap	Boot opensuse Leap installer
@@ -238,14 +237,6 @@ goto ${system}
   set baseurl:string http://ftp.icm.edu.pl/pub/Linux/opensuse/distribution/openSUSE-current
   set arch:string i386
   goto opensuse-generic-boot
-
-
-:opensuse114
-  dhcp
-  set baseurl:string http://ftp.icm.edu.pl/pub/Linux/opensuse/distribution/11.4
-  set arch:string i386
-  goto opensuse-generic-boot
-
 
 :opensuset
   dhcp
