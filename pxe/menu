@@ -240,13 +240,15 @@ goto ${system}
 
 :opensuset
   dhcp
-  set baseurl:string http://download.opensuse.org/tumbleweed
+ # set baseurl:string http://download.opensuse.org/tumbleweed
+  set baseurl:string http://ftp.icm.edu.pl/pub/Linux/opensuse/tumbleweed
   set arch:string i386
   goto opensuse-generic-boot
 
 :opensuset64
   dhcp
-  set baseurl:string http://download.opensuse.org/tumbleweed
+  #set baseurl:string http://download.opensuse.org/tumbleweed
+  set baseurl:string http://ftp.icm.edu.pl/pub/Linux/opensuse/tumbleweed
   set arch:string x86_64
   goto opensuse-generic-boot
 
@@ -271,8 +273,8 @@ goto ${system}
 
 :tinycore
   dhcp 
-  initrd http://repo.tinycorelinux.net/7.x/x86/release/distribution_files/core.gz
-  imgfetch http://repo.tinycorelinux.net/7.x/x86/release/distribution_files/vmlinuz
+  initrd http://repo.tinycorelinux.net/8.x/x86/release/distribution_files/core.gz
+  imgfetch http://repo.tinycorelinux.net/8.x/x86/release/distribution_files/vmlinuz
   boot vmlinuz || goto selection
 
 # all other tinycore args still apply here
@@ -285,8 +287,8 @@ goto ${system}
 
 :tinycore64
   dhcp
-  initrd http://repo.tinycorelinux.net/7.x/x86/release/distribution_files/core64.gz
-  imgfetch http://repo.tinycorelinux.net/7.x/x86/release/distribution_files/vmlinuz64
+  initrd http://repo.tinycorelinux.net/8.x/x86/release/distribution_files/core64.gz
+  imgfetch http://repo.tinycorelinux.net/8.x/x86/release/distribution_files/vmlinuz64
   boot vmlinuz64 || goto selection
 
 
