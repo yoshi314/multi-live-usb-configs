@@ -28,7 +28,6 @@ item dcore-trusty	Boot dCore (ubuntu trusty version, 14.04)
 item dcore-utopic	Boot dCore (ubuntu utopic version, 14.10)
 item dcore-vivid	Boot dCore (ubuntu vivid  version, 15.04)
 item arch		Boot archlinux installer
-item arch-text		Boot archlinux installer [text mode menu]
 item centos		Boot CentOS installer
 item scientific		Boot Scientific Linux installer
 item fedora		Boot Fedora installer
@@ -131,7 +130,7 @@ goto ${system}
 :ubuntu
 
   dhcp
-  set 210:string http://archive.ubuntu.com/ubuntu/dists/xenial/main/installer-i386/current/images/netboot/ubuntu-installer/i386/
+  set 210:string http://archive.ubuntu.com/ubuntu/dists/zesty/main/installer-i386/current/images/netboot/ubuntu-installer/i386/
 #  set 210:string http://archive.ubuntu.com/ubuntu/dists/wily/main/installer-i386/current/images/netboot/
 #  chain ${210:string}pxelinux.0
 #  chain http://archive.ubuntu.com/ubuntu/dists/trusty/main/installer-i386/current/images/netboot/pxelinux.0
@@ -141,7 +140,7 @@ goto ${system}
 :ubuntu64
 
   dhcp
-  set 210:string http://archive.ubuntu.com/ubuntu/dists/xenial/main/installer-amd64/current/images/netboot/ubuntu-installer/amd64/
+  set 210:string http://archive.ubuntu.com/ubuntu/dists/zesty/main/installer-amd64/current/images/netboot/ubuntu-installer/amd64/
 #  set 210:string http://archive.ubuntu.com/ubuntu/dists/wily/main/installer-amd64/current/images/netboot/
 #  chain ${210:string}pxelinux.0
 #  chain http://archive.ubuntu.com/ubuntu/dists/wily/main/installer-amd64/current/images/netboot/pxelinux.0
@@ -337,18 +336,12 @@ goto ${system}
 
   dhcp
 
-# config file name
-  set 209:string cfg/arch.cfg
-# path prefix
-  set 210:string http://releng.archlinux.org/pxeboot/boot/
-  chain ${210:string}pxelinux.0
+# archlinux uses imgtrust enforcing in new ipxe setup and this is a bit of a hassle to setup in ipxe
+# instead just chainload their loader with necessary settings
 
-# other params are documented on http://www.syslinux.org/wiki/index.php/PXELINUX
+# imgfetch http://www.archlinux.org/releng/netboot/archlinux.ipxe
+#  boot archlinux.ipxe
 
-:arch-text
-
-  dhcp
-  set 209:string cfg/arch_text.cfg
-  set 210:string http://releng.archlinux.org/pxeboot/boot/
-  chain ${210:string}pxelinux.0
+  imgfetch http://www.archlinux.org/static/netboot/ipxe.8da38b4a9310.pxe
+  boot ipxe.8da38b4a9310.pxe
 
