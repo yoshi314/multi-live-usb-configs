@@ -156,7 +156,7 @@ goto ${system}
 :debian64
 
   dhcp
-  set 210:string http://ftp.pl.debian.org/debian/dists/jessie/main/installer-amd64/current/images/netboot/debian-installer/amd64/
+  set 210:string http://ftp.pl.debian.org/debian/dists/stable/main/installer-amd64/current/images/netboot/debian-installer/amd64/
   #chain ${210:string}pxelinux.0
   initrd ${210:string}initrd.gz
   chain ${210:string}linux
@@ -164,7 +164,7 @@ goto ${system}
 :debian
 
   dhcp
-  set 210:string http://ftp.pl.debian.org/debian/dists/jessie/main/installer-i386/current/images/netboot/debian-installer/i386/
+  set 210:string http://ftp.pl.debian.org/debian/dists/stable/main/installer-i386/current/images/netboot/debian-installer/i386/
 #  chain ${210:string}pxelinux.0
   initrd ${210:string}initrd.gz
   chain ${210:string}linux
@@ -172,7 +172,7 @@ goto ${system}
 :debian64gui
 
   dhcp
-  set 210:string http://ftp.pl.debian.org/debian/dists/jessie/main/installer-amd64/current/images/netboot/gtk/debian-installer/amd64/
+  set 210:string http://ftp.pl.debian.org/debian/dists/stable/main/installer-amd64/current/images/netboot/gtk/debian-installer/amd64/
 #  chain ${210:string}pxelinux.0
   initrd ${210:string}initrd.gz
   chain ${210:string}linux
@@ -180,7 +180,7 @@ goto ${system}
 :debiangui
 
   dhcp
-  set 210:string http://ftp.pl.debian.org/debian/dists/jessie/main/installer-i386/current/images/netboot/gtk/debian-installer/i386/
+  set 210:string http://ftp.pl.debian.org/debian/dists/stable/main/installer-i386/current/images/netboot/gtk/debian-installer/i386/
 #  chain ${210:string}pxelinux.0
   initrd ${210:string}initrd.gz
   chain ${210:string}linux
