@@ -1,5 +1,12 @@
 #!ipxe
 
+#  ipxe may fail fetching some files (especially wrt archlinux) from https
+#  make sure to build ipxe with https and optionally with FTP as well
+#  to do so, edit your ipxe's src/config/general.h and modify the line
+#  DOWNLOAD_PROTO_HTTPS  from undef to define
+#  do similarily for the line with FTP protocol if necessary
+#
+
 :selection
 
 menu iPXE boot menu
@@ -341,6 +348,6 @@ goto ${system}
 # imgfetch http://www.archlinux.org/releng/netboot/archlinux.ipxe
 #  boot archlinux.ipxe
 
-  imgfetch http://www.archlinux.org/static/netboot/ipxe.8da38b4a9310.pxe
+  imgfetch https://www.archlinux.org/static/netboot/ipxe.8da38b4a9310.pxe
   boot ipxe.8da38b4a9310.pxe
 
