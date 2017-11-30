@@ -10,6 +10,8 @@
 :selection
 
 menu iPXE boot menu
+item slax32         Boot Slax 32-bit
+item slax64         Boot Slax 64-bit
 item debian64		Boot debian 64bit installer
 item debian		Boot debian 32bit installer
 item debian64gui	Boot debian 64bit installer [gtk]
@@ -56,6 +58,14 @@ choose system || goto :selection
 
 goto ${system}
 
+
+:slax32
+dhcp
+chain http://slax.org/ipxe/?arch=32bit
+
+:slax64
+dhcp
+chain http://slax.org/ipxe/?arch=64bit
 
 :scientific
   dhcp
