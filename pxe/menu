@@ -284,6 +284,7 @@ chain http://slax.org/ipxe/?arch=64bit
 :tinycore
   dhcp 
   initrd http://repo.tinycorelinux.net/9.x/x86/release/distribution_files/core.gz
+  initrd http://repo.tinycorelinux.net/9.x/x86/release/distribution_files/modules.gz
   imgfetch http://repo.tinycorelinux.net/9.x/x86/release/distribution_files/vmlinuz
   boot vmlinuz || goto selection
 
@@ -297,7 +298,8 @@ chain http://slax.org/ipxe/?arch=64bit
 
 :tinycore64
   dhcp
-  initrd http://repo.tinycorelinux.net/9.x/x86/release/distribution_files/core64.gz
+  initrd http://repo.tinycorelinux.net/9.x/x86/release/distribution_files/core.gz
+  initrd http://repo.tinycorelinux.net/9.x/x86/release/distribution_files/modules64.gz
   imgfetch http://repo.tinycorelinux.net/9.x/x86/release/distribution_files/vmlinuz64
   boot vmlinuz64 || goto selection
 
