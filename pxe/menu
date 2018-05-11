@@ -109,14 +109,14 @@ chain http://slax.org/ipxe/?arch=64bit
 
   dhcp
 
-  set baseurl:string http://ftp.icm.edu.pl/pub/Linux/fedora/linux/releases/27/Server/x86_64/os
+  set baseurl:string http://ftp.icm.edu.pl/pub/Linux/fedora/linux/releases/28/Server/x86_64/os
   initrd ${baseurl:string}/images/pxeboot/initrd.img
   chain  ${baseurl:string}/images/pxeboot/vmlinuz repo=${baseurl:string}
 
 :fedora-mirror-workstation
   dhcp
 
-  set baseurl:string http://ftp.icm.edu.pl/pub/Linux/fedora/linux/releases/27/Workstation/x86_64/os
+  set baseurl:string http://ftp.icm.edu.pl/pub/Linux/fedora/linux/releases/28/Workstation/x86_64/os
   initrd ${baseurl:string}/images/pxeboot/initrd.img
   chain  ${baseurl:string}/images/pxeboot/vmlinuz repo=${baseurl:string}
 
@@ -283,8 +283,8 @@ chain http://slax.org/ipxe/?arch=64bit
 
 :tinycore
   dhcp 
-  initrd http://repo.tinycorelinux.net/8.x/x86/release/distribution_files/core.gz
-  imgfetch http://repo.tinycorelinux.net/8.x/x86/release/distribution_files/vmlinuz
+  initrd http://repo.tinycorelinux.net/9.x/x86/release/distribution_files/core.gz
+  imgfetch http://repo.tinycorelinux.net/9.x/x86/release/distribution_files/vmlinuz
   boot vmlinuz || goto selection
 
 # all other tinycore args still apply here
@@ -297,15 +297,15 @@ chain http://slax.org/ipxe/?arch=64bit
 
 :tinycore64
   dhcp
-  initrd http://repo.tinycorelinux.net/8.x/x86/release/distribution_files/core64.gz
-  imgfetch http://repo.tinycorelinux.net/8.x/x86/release/distribution_files/vmlinuz64
+  initrd http://repo.tinycorelinux.net/9.x/x86/release/distribution_files/core64.gz
+  imgfetch http://repo.tinycorelinux.net/9.x/x86/release/distribution_files/vmlinuz64
   boot vmlinuz64 || goto selection
 
 
 :tinycore64pure
   dhcp
-  initrd http://repo.tinycorelinux.net/7.x/x86_64/release/distribution_files/corepure64.gz
-  imgfetch http://repo.tinycorelinux.net/7.x/x86_64/release/distribution_files/vmlinuz64
+  initrd http://repo.tinycorelinux.net/9.x/x86_64/release/distribution_files/corepure64.gz
+  imgfetch http://repo.tinycorelinux.ne9/9.x/x86_64/release/distribution_files/vmlinuz64
   boot vmlinuz64 || goto selection
 
 :dcore-wheezy
