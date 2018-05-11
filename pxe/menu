@@ -305,7 +305,7 @@ chain http://slax.org/ipxe/?arch=64bit
 :tinycore64pure
   dhcp
   initrd http://repo.tinycorelinux.net/9.x/x86_64/release/distribution_files/corepure64.gz
-  imgfetch http://repo.tinycorelinux.ne9/9.x/x86_64/release/distribution_files/vmlinuz64
+  imgfetch http://repo.tinycorelinux.net/9.x/x86_64/release/distribution_files/vmlinuz64
   boot vmlinuz64 || goto selection
 
 :dcore-wheezy
