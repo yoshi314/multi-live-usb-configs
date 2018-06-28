@@ -50,25 +50,25 @@ item alpine64     Boot Alpine Linux 64 [vanilla]
 item alpine64virt     Boot Alpine Linux 64 [virt]
 item alpine32     Boot Alpine Linux 32 [vanilla]
 item alpine32virt     Boot Alpine Linux 32 [virt]
+item localmenu      Boot extra local menu
 
 
 item --key c config	Configure iPXE
 item --key x exit	Exit iPXE
 set menu-timeout 0
 
-# in some cases you may need to host files on custom machine
-# this is just my home setup
+choose system || goto :selection
+
+goto ${system}
+
+:localmenu
+dhcp
 set localcredentials:string login:password@
 set localweb:string 192.168.1.167
 set localurl:string /pxeboot
 set localwebserver:string http://${localcredentials:string}${localweb:string}${localurl:string}
 
-
-
-
-choose system || goto :selection
-
-goto ${system}
+chain ${localwebserver:string}/pxemenu
 
 # there are more archs to use, adjust as necessary
 :alpine64
