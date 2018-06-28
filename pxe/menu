@@ -46,11 +46,23 @@ item ubuntu		Boot Ubuntu installer
 item ubuntu64		Boot Ubuntu installer [64bit]
 item slitaz		Boot SliTaz
 item slitaz-rolling	Boot SliTaz [rolling]
+item alpine64     Boot Alpine Linux 64 [vanilla]
+item alpine64virt     Boot Alpine Linux 64 [virt]
+item alpine32     Boot Alpine Linux 32 [vanilla]
+item alpine32virt     Boot Alpine Linux 32 [virt]
 
 
 item --key c config	Configure iPXE
 item --key x exit	Exit iPXE
 set menu-timeout 0
+
+# in some cases you may need to host files on custom machine
+# this is just my home setup
+set localcredentials:string login:password@
+set localweb:string 192.168.1.167
+set localurl:string /pxeboot
+set localwebserver:string http://${localcredentials:string}${localweb:string}${localurl:string}
+
 
 
 
@@ -58,6 +70,42 @@ choose system || goto :selection
 
 goto ${system}
 
+# there are more archs to use, adjust as necessary
+:alpine64
+dhcp
+set arch:string x86_64
+set baseurl:string http://dl-cdn.alpinelinux.org/alpine/v3.8/releases/${arch:string}/netboot-3.8.0/
+set type:string vanilla
+initrd ${baseurl:strings}/initramfs-${type:string}
+initrd ${baseurl:strings}/modloop-${type:string}
+chain ${baseurl:strings}/vmlinuz-${type:string}
+
+:alpine64virt
+dhcp
+set arch:string x86_64
+set baseurl:string http://dl-cdn.alpinelinux.org/alpine/v3.8/releases/${arch:string}/netboot-3.8.0/
+set type:string virt
+initrd ${baseurl:strings}/initramfs-${type:string}
+initrd ${baseurl:strings}/modloop-${type:string}
+chain ${baseurl:strings}/vmlinuz-${type:string}
+
+:alpine32
+dhcp
+set arch:string x86
+set baseurl:string http://dl-cdn.alpinelinux.org/alpine/v3.8/releases/${arch:string}/netboot-3.8.0/
+set type:string vanilla
+initrd ${baseurl:strings}/initramfs-${type:string}
+initrd ${baseurl:strings}/modloop-${type:string}
+chain ${baseurl:strings}/vmlinuz-${type:string}
+
+:alpine32virt
+dhcp
+set arch:string x86
+set baseurl:string http://dl-cdn.alpinelinux.org/alpine/v3.8/releases/${arch:string}/netboot-3.8.0/
+set type:string virt
+initrd ${baseurl:strings}/initramfs-${type:string}
+initrd ${baseurl:strings}/modloop-${type:string}
+chain ${baseurl:strings}/vmlinuz-${type:string}
 
 :slax32
 dhcp
