@@ -18,8 +18,6 @@ item debian64gui	Boot debian 64bit installer [gtk]
 item debiangui		Boot debian 32bit installer [gtk]
 item mageia64		Boot mageia 64bit installer
 item mageia		Boot mageia 32bit installer
-item opensuse64		Boot opensuse 64bit installer (current version)
-item opensuse		Boot opensuse 32bit installer (current version)
 item opensuset64	Boot opensuse 64bit installer (tumbleweed)
 item opensuset		Boot opensuse 32bit installer (tumbleweed)
 item opensusef64	Boot opensuse Factory 64bit installer
@@ -264,14 +262,6 @@ chain http://slax.org/ipxe/?arch=64bit
   boot vmlinuz || goto selection
 
 
-:opensuse64
-  dhcp
-#  set baseurl:string http://ftp.icm.edu.pl/pub/Linux/opensuse/distribution/openSUSE-current
-  set baseurl:string http://download.opensuse.org/distribution/openSUSE-current
-  set arch:string x86_64
-  goto opensuse-generic-boot
-
-
 :opensusef64
 
   dhcp
@@ -290,12 +280,6 @@ chain http://slax.org/ipxe/?arch=64bit
   dhcp
   set baseurl:string http://ftp.icm.edu.pl/pub/Linux/opensuse/distribution/leap/42.2
   set arch:string x86_64
-  goto opensuse-generic-boot
-
-:opensuse
-  dhcp
-  set baseurl:string http://ftp.icm.edu.pl/pub/Linux/opensuse/distribution/openSUSE-current
-  set arch:string i386
   goto opensuse-generic-boot
 
 :opensuset
