@@ -195,14 +195,14 @@ chain http://slax.org/ipxe/?arch=64bit
 :ubuntu
 
   dhcp
-  set 210:string http://archive.ubuntu.com/ubuntu/dists/bionic/main/installer-i386/current/images/netboot/ubuntu-installer/i386/
+  set 210:string http://archive.ubuntu.com/ubuntu/dists/cosmic/main/installer-i386/current/images/netboot/ubuntu-installer/i386/
   initrd ${210:string}initrd.gz
   chain ${210:string}linux
 
 :ubuntu64
 
   dhcp
-  set 210:string http://archive.ubuntu.com/ubuntu/dists/bionic/main/installer-amd64/current/images/netboot/ubuntu-installer/amd64/
+  set 210:string http://archive.ubuntu.com/ubuntu/dists/cosmic/main/installer-amd64/current/images/netboot/ubuntu-installer/amd64/
   initrd ${210:string}initrd.gz
   chain ${210:string}linux
 
