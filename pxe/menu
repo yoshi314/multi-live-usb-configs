@@ -35,7 +35,6 @@ item dcore-xenial   Boot dCore (ubuntu xenial version, 16.04)
 item arch		Boot archlinux installer
 item centos		Boot CentOS installer
 item scientific		Boot Scientific Linux installer
-item fedora		Boot Fedora installer
 item fedora-mirror	Boot Fedora installer Server edition [mirror]
 item fedora-mirror-workstation Boot Fedora installer Workstation edition [mirror]
 item ubuntu		Boot Ubuntu installer
@@ -46,6 +45,8 @@ item alpine64     Boot Alpine Linux 64 [vanilla]
 item alpine64virt     Boot Alpine Linux 64 [virt]
 item alpine32     Boot Alpine Linux 32 [vanilla]
 item alpine32virt     Boot Alpine Linux 32 [virt]
+item fedora		Chainload Fedora installer
+item ubuntu-pxe     Chainload Ubuntu pxelinux
 item localmenu      Boot extra local menu
 
 
@@ -191,6 +192,12 @@ chain http://slax.org/ipxe/?arch=64bit
 # you can get hints on available commands and kick off the install
 # usually just typing in 'install' is all you need on that prompt
 #
+#
+:ubuntu-pxe
+dhcp
+set 210:string http://archive.ubuntu.com/ubuntu/dists/cosmic-updates/main/installer-amd64/current/images/netboot/
+set 209:string http://archive.ubuntu.com/ubuntu/dists/cosmic-updates/main/installer-amd64/current/images/netboot/pxelinux.cfg/default
+chain ${210:string}pxelinux.0
 
 :ubuntu
 
