@@ -324,9 +324,9 @@ chain ${210:string}pxelinux.0
 
 :tinycore
   dhcp 
-  initrd http://repo.tinycorelinux.net/9.x/x86/release/distribution_files/core.gz
-  initrd http://repo.tinycorelinux.net/9.x/x86/release/distribution_files/modules.gz
-  imgfetch http://repo.tinycorelinux.net/9.x/x86/release/distribution_files/vmlinuz
+  initrd http://repo.tinycorelinux.net/10.x/x86/release/distribution_files/core.gz
+  initrd http://repo.tinycorelinux.net/10.x/x86/release/distribution_files/modules.gz
+  imgfetch http://repo.tinycorelinux.net/10.x/x86/release/distribution_files/vmlinuz
   boot vmlinuz || goto selection
 
 # all other tinycore args still apply here
@@ -339,16 +339,16 @@ chain ${210:string}pxelinux.0
 
 :tinycore64
   dhcp
-  initrd http://repo.tinycorelinux.net/9.x/x86/release/distribution_files/core.gz
-  initrd http://repo.tinycorelinux.net/9.x/x86/release/distribution_files/modules64.gz
-  imgfetch http://repo.tinycorelinux.net/9.x/x86/release/distribution_files/vmlinuz64
+  initrd http://repo.tinycorelinux.net/10.x/x86/release/distribution_files/core.gz
+  initrd http://repo.tinycorelinux.net/10.x/x86/release/distribution_files/modules64.gz
+  imgfetch http://repo.tinycorelinux.net/10.x/x86/release/distribution_files/vmlinuz64
   boot vmlinuz64 || goto selection
 
 
 :tinycore64pure
   dhcp
-  initrd http://repo.tinycorelinux.net/9.x/x86_64/release/distribution_files/corepure64.gz
-  imgfetch http://repo.tinycorelinux.net/9.x/x86_64/release/distribution_files/vmlinuz64
+  initrd http://repo.tinycorelinux.net/10.x/x86_64/release/distribution_files/corepure64.gz
+  imgfetch http://repo.tinycorelinux.net/10.x/x86_64/release/distribution_files/vmlinuz64
   boot vmlinuz64 || goto selection
 
 :dcore-wheezy
