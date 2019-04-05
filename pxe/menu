@@ -72,41 +72,41 @@ chain ${localwebserver:string}/pxemenu
 dhcp
 set arch:string x86_64
 set type:string vanilla
-set baseurl:string http://dl-cdn.alpinelinux.org/alpine/v3.8/
-set imageurl:string http://dl-cdn.alpinelinux.org/alpine/v3.8/releases/${arch:string}/netboot-3.8.0/
+set baseurl:string http://dl-cdn.alpinelinux.org/alpine/v3.9/
+set imageurl:string http://dl-cdn.alpinelinux.org/alpine/v3.9/releases/${arch:string}/netboot-3.9.2/
 initrd ${imageurl:string}/initramfs-${type:string}
 kernel ${imageurl:string}/vmlinuz-${type:string}
-boot vmlinuz-${type:string} alpine_repo=${baseurl:string}/main modloop=${baseurl:string}/releases/${arch:string}/netboot-3.8.0/modloop-${type:string}
+boot vmlinuz-${type:string} alpine_repo=${baseurl:string}/main modloop=${baseurl:string}/releases/${arch:string}/netboot-3.9.2/modloop-${type:string}
 
 :alpine64virt
 dhcp
 set arch:string x86_64
 set type:string virt
-set baseurl:string http://dl-cdn.alpinelinux.org/alpine/v3.8/
-set imageurl:string http://dl-cdn.alpinelinux.org/alpine/v3.8/releases/${arch:string}/netboot-3.8.0/
+set baseurl:string http://dl-cdn.alpinelinux.org/alpine/v3.9/
+set imageurl:string http://dl-cdn.alpinelinux.org/alpine/v3.9/releases/${arch:string}/netboot-3.9.2/
 initrd ${imageurl:string}/initramfs-${type:string}
 kernel ${imageurl:string}/vmlinuz-${type:string}
-boot vmlinuz-${type:string} alpine_repo=${baseurl:string}/main modloop=${baseurl:string}/releases/${arch:string}/netboot-3.8.0/modloop-${type:string}
+boot vmlinuz-${type:string} alpine_repo=${baseurl:string}/main modloop=${baseurl:string}/releases/${arch:string}/netboot-3.9.2/modloop-${type:string}
 
 :alpine32
 dhcp
 set arch:string x86
 set type:string vanilla
-set baseurl:string http://dl-cdn.alpinelinux.org/alpine/v3.8/
-set imageurl:string http://dl-cdn.alpinelinux.org/alpine/v3.8/releases/${arch:string}/netboot-3.8.0/
+set baseurl:string http://dl-cdn.alpinelinux.org/alpine/v3.9/
+set imageurl:string http://dl-cdn.alpinelinux.org/alpine/v3.9/releases/${arch:string}/netboot-3.9.2/
 initrd ${imageurl:string}/initramfs-${type:string}
 kernel ${imageurl:string}/vmlinuz-${type:string}
-boot vmlinuz-${type:string} alpine_repo=${baseurl:string}/main modloop=${baseurl:string}/releases/${arch:string}/netboot-3.8.0/modloop-${type:string}
+boot vmlinuz-${type:string} alpine_repo=${baseurl:string}/main modloop=${baseurl:string}/releases/${arch:string}/netboot-3.9.2/modloop-${type:string}
 
 :alpine32virt
 dhcp
 set arch:string x86
 set type:string virt
-set baseurl:string http://dl-cdn.alpinelinux.org/alpine/v3.8/
-set imageurl:string ${baseurl:string}/releases/${arch:string}/netboot-3.8.0/
+set baseurl:string http://dl-cdn.alpinelinux.org/alpine/v3.9/
+set imageurl:string http://dl-cdn.alpinelinux.org/alpine/v3.9/releases/${arch:string}/netboot-3.9.2/
 initrd ${imageurl:string}/initramfs-${type:string}
 kernel ${imageurl:string}/vmlinuz-${type:string}
-boot vmlinuz-${type:string} alpine_repo=${baseurl:string}/main modloop=${baseurl:string}/releases/${arch:string}/netboot-3.8.0/modloop-${type:string}
+boot vmlinuz-${type:string} alpine_repo=${baseurl:string}/main modloop=${baseurl:string}/releases/${arch:string}/netboot-3.9.2/modloop-${type:string}
 
 :slax32
 dhcp
