@@ -33,6 +33,7 @@ item dcore-stretch  Boot dCore (debian stretch)
 item dcore-trusty	Boot dCore (ubuntu trusty version, 14.04)
 item dcore-xenial   Boot dCore (ubuntu xenial version, 16.04)
 item arch		Boot archlinux installer
+item archplain  Boot archlinux installer [fallback]
 item centos		Boot CentOS installer
 item scientific		Boot Scientific Linux installer
 item fedora-mirror	Boot Fedora installer Server edition [mirror]
@@ -71,42 +72,40 @@ chain ${localwebserver:string}/pxemenu
 :alpine64
 dhcp
 set arch:string x86_64
-set type:string vanilla
-set baseurl:string http://dl-cdn.alpinelinux.org/alpine/v3.10/
-set imageurl:string http://dl-cdn.alpinelinux.org/alpine/v3.10/releases/${arch:string}/netboot-3.9.2/
-initrd ${imageurl:string}/initramfs-${type:string}
-kernel ${imageurl:string}/vmlinuz-${type:string}
-boot vmlinuz-${type:string} alpine_repo=${baseurl:string}/main modloop=${baseurl:string}/releases/${arch:string}/netboot-3.9.2/modloop-${type:string}
+set type:string lts
+set baseurl:string http://dl-cdn.alpinelinux.org/alpine/v3.11/
+set imageurl:string ${baseurl:string}/releases/${arch:string}/netboot-3.11.4/
+goto alpine_generic_boot
 
 :alpine64virt
 dhcp
 set arch:string x86_64
 set type:string virt
-set baseurl:string http://dl-cdn.alpinelinux.org/alpine/v3.10/
-set imageurl:string http://dl-cdn.alpinelinux.org/alpine/v3.10/releases/${arch:string}/netboot-3.9.2/
-initrd ${imageurl:string}/initramfs-${type:string}
-kernel ${imageurl:string}/vmlinuz-${type:string}
-boot vmlinuz-${type:string} alpine_repo=${baseurl:string}/main modloop=${baseurl:string}/releases/${arch:string}/netboot-3.9.2/modloop-${type:string}
+set baseurl:string http://dl-cdn.alpinelinux.org/alpine/v3.11/
+set imageurl:string ${baseurl:string}/releases/${arch:string}/netboot-3.11.4/
+goto alpine_generic_boot
 
 :alpine32
 dhcp
 set arch:string x86
-set type:string vanilla
-set baseurl:string http://dl-cdn.alpinelinux.org/alpine/v3.10/
-set imageurl:string http://dl-cdn.alpinelinux.org/alpine/v3.10/releases/${arch:string}/netboot-3.9.2/
-initrd ${imageurl:string}/initramfs-${type:string}
-kernel ${imageurl:string}/vmlinuz-${type:string}
-boot vmlinuz-${type:string} alpine_repo=${baseurl:string}/main modloop=${baseurl:string}/releases/${arch:string}/netboot-3.9.2/modloop-${type:string}
+set type:string lts
+set baseurl:string http://dl-cdn.alpinelinux.org/alpine/v3.11/
+set imageurl:string ${baseurl:string}/releases/${arch:string}/netboot-3.11.4/
+goto alpine_generic_boot
 
 :alpine32virt
 dhcp
 set arch:string x86
 set type:string virt
-set baseurl:string http://dl-cdn.alpinelinux.org/alpine/v3.10/
-set imageurl:string http://dl-cdn.alpinelinux.org/alpine/v3.10/releases/${arch:string}/netboot-3.9.2/
+set baseurl:string http://dl-cdn.alpinelinux.org/alpine/v3.11/
+set imageurl:string http://dl-cdn.alpinelinux.org/alpine/v3.11/releases/${arch:string}/netboot-3.11.4
+goto alpine_generic_boot
+
+:alpine_generic_boot
 initrd ${imageurl:string}/initramfs-${type:string}
 kernel ${imageurl:string}/vmlinuz-${type:string}
-boot vmlinuz-${type:string} alpine_repo=${baseurl:string}/main modloop=${baseurl:string}/releases/${arch:string}/netboot-3.9.2/modloop-${type:string}
+boot vmlinuz-${type:string} alpine_repo=${baseurl:string}/main modloop=${baseurl:string}/releases/${arch:string}/netboot-3.11.4/modloop-${type:string}
+
 
 :slax32
 dhcp
@@ -177,39 +176,23 @@ chain http://slax.org/ipxe/?arch=64bit
   initrd ${baseurl:string}isolinux/initrd.img
   chain  ${baseurl:string}isolinux/vmlinuz repo=${baseurl:string}
 
-
-#
-# vivid is currently broken, use syslinux menu with downloaded kernel and initrd instead for now
-# changed it anyway, maybe it will get fixed
-# https://bugs.launchpad.net/ubuntu/+source/syslinux/+bug/1385069
-#
-
-
-#
-# as a workaround, load pxelinux from older ubuntu 
-# and then load subsequent files from current release
-# it will fail to load menu module, but if you press TAB
-# you can get hints on available commands and kick off the install
-# usually just typing in 'install' is all you need on that prompt
-#
-#
 :ubuntu-pxe
 dhcp
-set 210:string http://archive.ubuntu.com/ubuntu/dists/disco/main/installer-amd64/current/images/netboot/
-set 209:string http://archive.ubuntu.com/ubuntu/dists/disco/main/installer-amd64/current/images/netboot/pxelinux.cfg/default
+set 210:string http://archive.ubuntu.com/ubuntu/dists/eoan/main/installer-amd64/current/images/netboot/
+set 209:string http://archive.ubuntu.com/ubuntu/dists/eoan/main/installer-amd64/current/images/netboot/pxelinux.cfg/default
 chain ${210:string}pxelinux.0
 
 :ubuntu
 
   dhcp
-  set 210:string http://archive.ubuntu.com/ubuntu/dists/disco/main/installer-i386/current/images/netboot/ubuntu-installer/i386/
+  set 210:string http://archive.ubuntu.com/ubuntu/dists/eoan/main/installer-i386/current/images/netboot/ubuntu-installer/i386/
   initrd ${210:string}initrd.gz
   chain ${210:string}linux
 
 :ubuntu64
 
   dhcp
-  set 210:string http://archive.ubuntu.com/ubuntu/dists/disco/main/installer-amd64/current/images/netboot/ubuntu-installer/amd64/
+  set 210:string http://archive.ubuntu.com/ubuntu/dists/eoan/main/installer-amd64/current/images/netboot/ubuntu-installer/amd64/
   initrd ${210:string}initrd.gz
   chain ${210:string}linux
 
@@ -398,3 +381,10 @@ chain ${210:string}pxelinux.0
   imgfetch https://www.archlinux.org/static/netboot/ipxe.a56af4e6a9a9.pxe
   boot ipxe.a56af4e6a9a9.pxe
 
+# arch linux config when above option fails
+:archplain
+  dhcp
+  set baseurl:string http://ftp.icm.edu.pl/pub/Linux/dist/archlinux/iso/latest
+  initrd ${baseurl:string}/arch/boot/x86_64/archiso.img
+  imgfetch ${baseurl:string}/arch/boot/x86_64/vmlinuz
+  boot vmlinuz initrd=archiso.img archiso_http_srv=${baseurl:string}/ archisobasedir=arch || goto selection
