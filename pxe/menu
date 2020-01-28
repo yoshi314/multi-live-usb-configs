@@ -378,8 +378,8 @@ chain ${210:string}pxelinux.0
 # imgfetch http://www.archlinux.org/releng/netboot/archlinux.ipxe
 #  boot archlinux.ipxe
 
-  imgfetch https://www.archlinux.org/static/netboot/ipxe.a56af4e6a9a9.pxe
-  boot ipxe.a56af4e6a9a9.pxe
+  imgfetch https://www.archlinux.org/static/netboot/ipxe.31e77c156b6d.pxe
+  boot ipxe.31e77c156b6d.pxe
 
 # arch linux config when above option fails
 :archplain
