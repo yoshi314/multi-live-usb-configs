@@ -209,7 +209,7 @@ chain ${210:string}pxelinux.0
 :ubuntu64
 
   dhcp
-  set 210:string http://archive.ubuntu.com/ubuntu/dists/disco/main/installer-amd64/current/images/netboot/ubuntu-installer/amd64/
+  set 210:string http://archive.ubuntu.com/ubuntu/dists/eoan/main/installer-amd64/current/images/netboot/ubuntu-installer/amd64/
   initrd ${210:string}initrd.gz
   chain ${210:string}linux
 
