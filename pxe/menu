@@ -39,8 +39,8 @@ item centos		Boot CentOS installer
 item scientific		Boot Scientific Linux installer
 item fedora-mirror	Boot Fedora installer Server edition [mirror]
 item fedora-mirror-workstation Boot Fedora installer Workstation edition [mirror]
-item ubuntu		Boot Ubuntu installer
-item ubuntu64		Boot Ubuntu installer [64bit]
+item ubuntu		Boot Ubuntu installer [32bit, eoan]
+item ubuntu64		Boot Ubuntu installer [64bit, current]
 item slitaz		Boot SliTaz
 item slitaz-rolling	Boot SliTaz [rolling]
 item alpine64     Boot Alpine Linux 64 [vanilla]
@@ -63,7 +63,7 @@ goto ${system}
 :localmenu
 dhcp
 set localcredentials:string login:password@
-set localweb:string 192.168.1.167
+set localweb:string 192.168.1.105
 set localurl:string /pxeboot
 set localwebserver:string http://${localcredentials:string}${localweb:string}${localurl:string}
 
@@ -173,8 +173,8 @@ chain http://slax.org/ipxe/?arch=64bit
 
 :ubuntu-pxe
 dhcp
-set 210:string http://archive.ubuntu.com/ubuntu/dists/eoan/main/installer-amd64/current/images/netboot/
-set 209:string http://archive.ubuntu.com/ubuntu/dists/eoan/main/installer-amd64/current/images/netboot/pxelinux.cfg/default
+set 210:string http://archive.ubuntu.com/ubuntu/dists/focal/main/installer-amd64/current/images/netboot/
+set 209:string http://archive.ubuntu.com/ubuntu/dists/focal/main/installer-amd64/current/images/netboot/pxelinux.cfg/default
 chain ${210:string}pxelinux.0
 
 :ubuntu
@@ -187,7 +187,7 @@ chain ${210:string}pxelinux.0
 :ubuntu64
 
   dhcp
-  set 210:string http://archive.ubuntu.com/ubuntu/dists/eoan/main/installer-amd64/current/images/netboot/ubuntu-installer/amd64/
+  set 210:string http://archive.ubuntu.com/ubuntu/dists/focal/main/installer-amd64/current/legacy-images/netboot/ubuntu-installer/amd64/
   initrd ${210:string}initrd.gz
   chain ${210:string}linux
 
