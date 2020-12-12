@@ -1,0 +1,10 @@
+unpack_arch() {
+	[ -e "arch.iso" ] || exit 0
+	echo "unpacking archlinux iso [arch.iso]"
+	mkdir -p arch/x86_64 || true
+	cd arch/x86_64
+
+	7z e -y ../../arch.iso arch/boot/x86_64/initramfs-linux.img arch/boot/x86_64/vmlinuz-linux arch/x86_64/airootfs.sfs arch/x86_64/airootfs.sfs.sig
+	7z e -y ../../arch.iso arch/boot/*img
+	cd ../..
+}
