@@ -32,6 +32,7 @@ item dcore-jessie	Boot dCore (debian jessie version)
 item dcore-stretch  Boot dCore (debian stretch)
 item dcore-trusty	Boot dCore (ubuntu trusty version, 14.04)
 item dcore-xenial   Boot dCore (ubuntu xenial version, 16.04)
+item dcore-bionic   Boot dCore (ubuntu bionic version, 18.04)
 item arch		Boot archlinux installer
 item archplain  Boot archlinux installer [fallback]
 item centos		Boot CentOS installer
@@ -307,9 +308,9 @@ chain ${210:string}pxelinux.0
 
 :tinycore
   dhcp 
-  initrd http://repo.tinycorelinux.net/10.x/x86/release/distribution_files/core.gz
-  initrd http://repo.tinycorelinux.net/10.x/x86/release/distribution_files/modules.gz
-  imgfetch http://repo.tinycorelinux.net/10.x/x86/release/distribution_files/vmlinuz
+  initrd http://repo.tinycorelinux.net/12.x/x86/release/distribution_files/core.gz
+  initrd http://repo.tinycorelinux.net/12.x/x86/release/distribution_files/modules.gz
+  imgfetch http://repo.tinycorelinux.net/12.x/x86/release/distribution_files/vmlinuz
   boot vmlinuz || goto selection
 
 # all other tinycore args still apply here
@@ -322,51 +323,53 @@ chain ${210:string}pxelinux.0
 
 :tinycore64
   dhcp
-  initrd http://repo.tinycorelinux.net/10.x/x86/release/distribution_files/core.gz
-  initrd http://repo.tinycorelinux.net/10.x/x86/release/distribution_files/modules64.gz
-  imgfetch http://repo.tinycorelinux.net/10.x/x86/release/distribution_files/vmlinuz64
+  initrd http://repo.tinycorelinux.net/12.x/x86/release/distribution_files/core.gz
+  initrd http://repo.tinycorelinux.net/12.x/x86/release/distribution_files/modules64.gz
+  imgfetch http://repo.tinycorelinux.net/12.x/x86/release/distribution_files/vmlinuz64
   boot vmlinuz64 || goto selection
 
 
 :tinycore64pure
   dhcp
-  initrd http://repo.tinycorelinux.net/10.x/x86_64/release/distribution_files/corepure64.gz
-  imgfetch http://repo.tinycorelinux.net/10.x/x86_64/release/distribution_files/vmlinuz64
+  initrd http://repo.tinycorelinux.net/12.x/x86_64/release/distribution_files/corepure64.gz
+  imgfetch http://repo.tinycorelinux.net/12.x/x86_64/release/distribution_files/vmlinuz64
   boot vmlinuz64 || goto selection
 
 :dcore-wheezy
-
   dhcp
-  initrd http://tinycorelinux.net/dCore/x86/release/dCore-wheezy/dCore-wheezy.gz
-  imgfetch http://tinycorelinux.net/dCore/x86/release/dCore-wheezy/vmlinuz-wheezy
-  boot vmlinuz-wheezy || goto selection
+  set codename:string wheezy
+  goto dcore-boot
 
 :dcore-stretch
-
   dhcp
-  initrd http://tinycorelinux.net/dCore/x86/release/dCore-stretch/dCore-stretch.gz
-  imgfetch http://tinycorelinux.net/dCore/x86/release/dCore-stretch/vmlinuz-stretch
-  boot vmlinuz-stretch || goto selection
+  set codename:string stretch
+  goto dcore-boot
 
 :dcore-jessie
   dhcp
-  initrd http://tinycorelinux.net/dCore/x86/release/dCore-jessie/dCore-jessie.gz
-  imgfetch http://tinycorelinux.net/dCore/x86/release/dCore-jessie/vmlinuz-jessie
-  boot vmlinuz-jessie || goto selection
+  set codename:string jessie
+  goto dcore-boot
 
 :dcore-trusty
-
   dhcp
-  initrd http://tinycorelinux.net/dCore/x86/release/dCore-trusty/dCore-trusty.gz
-  imgfetch http://tinycorelinux.net/dCore/x86/release/dCore-trusty/vmlinuz-trusty
-  boot vmlinuz-trusty || goto selection
+  set codename:string trusty
+  goto dcore-boot
 
 :dcore-xenial
-
   dhcp
-  initrd http://tinycorelinux.net/dCore/x86/release/dCore-xenial/dCore-xenial.gz
-  imgfetch http://tinycorelinux.net/dCore/x86/release/dCore-xenial/vmlinuz-xenial
-  boot vmlinuz-xenial || goto selection
+  set codename:string xenial
+  goto dcore-boot
+
+:dcore-bionic
+  dhcp
+  set codename:string bionic
+  goto dcore-boot
+
+:dcore-boot
+  initrd http://tinycorelinux.net/dCore/x86/release/dCore-${codename:string}/dCore-${codename:string}.gz
+  imgfetch http://tinycorelinux.net/dCore/x86/release/dCore-${codename:string}/vmlinuz-${codename:string}
+  boot vmlinuz-${codename:string} || goto selection
+
 
 :arch
 
@@ -376,7 +379,7 @@ chain ${210:string}pxelinux.0
 # instead just chainload their loader with necessary settings
 
 # imgfetch http://www.archlinux.org/releng/netboot/archlinux.ipxe
-#  boot archlinux.ipxe
+# boot archlinux.ipxe
 
   imgfetch https://www.archlinux.org/static/netboot/ipxe.31e77c156b6d.pxe
   boot ipxe.31e77c156b6d.pxe
@@ -387,4 +390,4 @@ chain ${210:string}pxelinux.0
   set baseurl:string http://ftp.icm.edu.pl/pub/Linux/dist/archlinux/iso/latest
   initrd ${baseurl:string}/arch/boot/x86_64/archiso.img
   imgfetch ${baseurl:string}/arch/boot/x86_64/vmlinuz
-  boot vmlinuz initrd=archiso.img archiso_http_srv=${baseurl:string}/ archisobasedir=arch || goto selection
+  boot vmlinuz initrd=archiso.img ip=dhcp net.ifnames=0 archisobasedir=arch archiso_http_srv=${baseurl:string} || goto selection
