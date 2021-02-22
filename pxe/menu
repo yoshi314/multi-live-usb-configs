@@ -22,7 +22,8 @@ item opensuset64	Boot opensuse 64bit installer (tumbleweed)
 item opensuset		Boot opensuse 32bit installer (tumbleweed)
 item opensusef64	Boot opensuse Factory 64bit installer
 item opensusef32	Boot opensuse Factory 32bit installer
-item opensuseleap	Boot opensuse Leap installer
+item opensuseleap	Boot opensuse Leap installer 42
+item opensuseleapcurrent	Boot opensuse Leap installer current
 item plop		Boot plop boot manager
 item tinycore		Boot tinycore linux
 item tinycore64		Boot tinycore linux [64bit kernel only]
@@ -35,12 +36,13 @@ item dcore-xenial   Boot dCore (ubuntu xenial version, 16.04)
 item dcore-bionic   Boot dCore (ubuntu bionic version, 18.04)
 item arch		Boot archlinux installer
 item archplain  Boot archlinux installer [fallback]
+item archchain  Boot archlinux pxe menu (test)
 item centos		Boot CentOS installer
 item scientific		Boot Scientific Linux installer
 item fedora-mirror	Boot Fedora installer Server edition [mirror]
 item fedora-mirror-workstation Boot Fedora installer Workstation edition [mirror]
-item ubuntu		Boot Ubuntu installer
-item ubuntu64		Boot Ubuntu installer [64bit]
+item ubuntu		Boot Ubuntu installer [32bit, eoan]
+item ubuntu64		Boot Ubuntu installer [64bit, current]
 item slitaz		Boot SliTaz
 item slitaz-rolling	Boot SliTaz [rolling]
 item alpine64     Boot Alpine Linux 64 [vanilla]
@@ -63,7 +65,7 @@ goto ${system}
 :localmenu
 dhcp
 set localcredentials:string login:password@
-set localweb:string 192.168.1.167
+set localweb:string 192.168.1.105
 set localurl:string /pxeboot
 set localwebserver:string http://${localcredentials:string}${localweb:string}${localurl:string}
 
@@ -74,38 +76,32 @@ chain ${localwebserver:string}/pxemenu
 dhcp
 set arch:string x86_64
 set type:string lts
-set baseurl:string http://dl-cdn.alpinelinux.org/alpine/v3.11/
-set imageurl:string ${baseurl:string}/releases/${arch:string}/netboot-3.11.4/
 goto alpine_generic_boot
 
 :alpine64virt
 dhcp
 set arch:string x86_64
 set type:string virt
-set baseurl:string http://dl-cdn.alpinelinux.org/alpine/v3.11/
-set imageurl:string ${baseurl:string}/releases/${arch:string}/netboot-3.11.4/
 goto alpine_generic_boot
 
 :alpine32
 dhcp
 set arch:string x86
 set type:string lts
-set baseurl:string http://dl-cdn.alpinelinux.org/alpine/v3.11/
-set imageurl:string ${baseurl:string}/releases/${arch:string}/netboot-3.11.4/
 goto alpine_generic_boot
 
 :alpine32virt
 dhcp
 set arch:string x86
 set type:string virt
-set baseurl:string http://dl-cdn.alpinelinux.org/alpine/v3.11/
-set imageurl:string http://dl-cdn.alpinelinux.org/alpine/v3.11/releases/${arch:string}/netboot-3.11.4
 goto alpine_generic_boot
 
 :alpine_generic_boot
+set baseurl:string http://dl-cdn.alpinelinux.org/alpine/v3.13/
+set imageurl:string ${baseurl:string}/releases/${arch:string}/netboot-3.13.1/
 initrd ${imageurl:string}/initramfs-${type:string}
 kernel ${imageurl:string}/vmlinuz-${type:string}
-boot vmlinuz-${type:string} alpine_repo=${baseurl:string}/main modloop=${baseurl:string}/releases/${arch:string}/netboot-3.11.4/modloop-${type:string}
+boot vmlinuz-${type:string} alpine_repo=${baseurl:string}/main modloop=${baseurl:string}/releases/${arch:string}/netboot-3.13.1/modloop-${type:string}
 
 
 :slax32
@@ -158,14 +154,14 @@ chain http://slax.org/ipxe/?arch=64bit
 
   dhcp
 
-  set baseurl:string http://ftp.icm.edu.pl/pub/Linux/fedora/linux/releases/30/Server/x86_64/os
+  set baseurl:string http://ftp.icm.edu.pl/pub/Linux/fedora/linux/releases/33/Server/x86_64/os
   initrd ${baseurl:string}/images/pxeboot/initrd.img
   chain  ${baseurl:string}/images/pxeboot/vmlinuz repo=${baseurl:string}
 
 :fedora-mirror-workstation
   dhcp
 
-  set baseurl:string http://ftp.icm.edu.pl/pub/Linux/fedora/linux/releases/30/Workstation/x86_64/os
+  set baseurl:string http://ftp.icm.edu.pl/pub/Linux/fedora/linux/releases/33/Workstation/x86_64/os
   initrd ${baseurl:string}/images/pxeboot/initrd.img
   chain  ${baseurl:string}/images/pxeboot/vmlinuz repo=${baseurl:string}
 
@@ -179,8 +175,8 @@ chain http://slax.org/ipxe/?arch=64bit
 
 :ubuntu-pxe
 dhcp
-set 210:string http://archive.ubuntu.com/ubuntu/dists/eoan/main/installer-amd64/current/images/netboot/
-set 209:string http://archive.ubuntu.com/ubuntu/dists/eoan/main/installer-amd64/current/images/netboot/pxelinux.cfg/default
+set 210:string http://archive.ubuntu.com/ubuntu/dists/focal/main/installer-amd64/current/images/netboot/
+set 209:string http://archive.ubuntu.com/ubuntu/dists/focal/main/installer-amd64/current/images/netboot/pxelinux.cfg/default
 chain ${210:string}pxelinux.0
 
 :ubuntu
@@ -193,7 +189,7 @@ chain ${210:string}pxelinux.0
 :ubuntu64
 
   dhcp
-  set 210:string http://archive.ubuntu.com/ubuntu/dists/eoan/main/installer-amd64/current/images/netboot/ubuntu-installer/amd64/
+  set 210:string http://archive.ubuntu.com/ubuntu/dists/focal/main/installer-amd64/current/legacy-images/netboot/ubuntu-installer/amd64/
   initrd ${210:string}initrd.gz
   chain ${210:string}linux
 
@@ -273,6 +269,12 @@ chain ${210:string}pxelinux.0
   set arch:string x86_64
   goto opensuse-generic-boot
 
+:opensuseleapcurrent
+  dhcp
+  set baseurl:string http://ftp.icm.edu.pl/pub/Linux/opensuse/distribution/leap/15.3
+  set arch:string x86_64
+  goto opensuse-generic-boot
+
 :opensuset
   dhcp
  # set baseurl:string http://download.opensuse.org/tumbleweed
@@ -328,7 +330,6 @@ chain ${210:string}pxelinux.0
   imgfetch http://repo.tinycorelinux.net/12.x/x86/release/distribution_files/vmlinuz64
   boot vmlinuz64 || goto selection
 
-
 :tinycore64pure
   dhcp
   initrd http://repo.tinycorelinux.net/12.x/x86_64/release/distribution_files/corepure64.gz
@@ -370,7 +371,6 @@ chain ${210:string}pxelinux.0
   imgfetch http://tinycorelinux.net/dCore/x86/release/dCore-${codename:string}/vmlinuz-${codename:string}
   boot vmlinuz-${codename:string} || goto selection
 
-
 :arch
 
   dhcp
@@ -383,6 +383,10 @@ chain ${210:string}pxelinux.0
 
   imgfetch https://www.archlinux.org/static/netboot/ipxe.31e77c156b6d.pxe
   boot ipxe.31e77c156b6d.pxe
+
+:archchain
+  dhcp
+  chain https://ipxe.archlinux.org/releng/netboot/archlinux.ipxe || goto selection
 
 # arch linux config when above option fails
 :archplain
