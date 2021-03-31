@@ -34,6 +34,10 @@ item dcore-stretch  Boot dCore (debian stretch)
 item dcore-trusty	Boot dCore (ubuntu trusty version, 14.04)
 item dcore-xenial   Boot dCore (ubuntu xenial version, 16.04)
 item dcore-bionic   Boot dCore (ubuntu bionic version, 18.04)
+item dcore-bionic64 Boot dCore (64bit, ubuntu bionic 18.04)
+item dcore-buster64 Boot dCore (64bit, debian buster 10)
+item dcore-focal64  Boot dCore (64bit, ubuntu focal 20.04)
+item dcore-stretch64 Boot dCore (64bit, debian stretch 9)
 item arch		Boot archlinux installer
 item archplain  Boot archlinux installer [fallback]
 item archchain  Boot archlinux pxe menu (test)
@@ -339,36 +343,66 @@ chain ${210:string}pxelinux.0
 :dcore-wheezy
   dhcp
   set codename:string wheezy
+  set arch:string x86
   goto dcore-boot
 
 :dcore-stretch
   dhcp
   set codename:string stretch
+  set arch:string x86
   goto dcore-boot
 
 :dcore-jessie
   dhcp
   set codename:string jessie
+  set arch:string x86
   goto dcore-boot
 
 :dcore-trusty
   dhcp
   set codename:string trusty
+  set arch:string x86
   goto dcore-boot
 
 :dcore-xenial
   dhcp
   set codename:string xenial
+  set arch:string x86
   goto dcore-boot
 
 :dcore-bionic
   dhcp
   set codename:string bionic
+  set arch:string x86
+  goto dcore-boot
+
+:dcore-bionic64
+  dhcp
+  set codename:string bionic64
+  set arch:string x86_64
+  goto dcore-boot
+
+:dcore-buster64
+  dhcp
+  set codename:string buster64
+  set arch:string x86_64
+  goto dcore-boot
+
+:dcore-focal64
+  dhcp
+  set codename:string focal64
+  set arch:string x86_64
+  goto dcore-boot
+
+:dcore-stretch64
+  dhcp
+  set codename:string stretch64
+  set arch:string x86_64
   goto dcore-boot
 
 :dcore-boot
-  initrd http://tinycorelinux.net/dCore/x86/release/dCore-${codename:string}/dCore-${codename:string}.gz
-  imgfetch http://tinycorelinux.net/dCore/x86/release/dCore-${codename:string}/vmlinuz-${codename:string}
+  initrd http://tinycorelinux.net/dCore/${arch:string}/release/dCore-${codename:string}/dCore-${codename:string}.gz
+  imgfetch http://tinycorelinux.net/dCore/${arch:string}/release/dCore-${codename:string}/vmlinuz-${codename:string}
   boot vmlinuz-${codename:string} || goto selection
 
 :arch
