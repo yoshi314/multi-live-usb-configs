@@ -22,7 +22,8 @@ item opensuset64	Boot opensuse 64bit installer (tumbleweed)
 item opensuset		Boot opensuse 32bit installer (tumbleweed)
 item opensusef64	Boot opensuse Factory 64bit installer
 item opensusef32	Boot opensuse Factory 32bit installer
-item opensuseleap	Boot opensuse Leap installer
+item opensuseleap	Boot opensuse Leap installer 42
+item opensuseleapcurrent	Boot opensuse Leap installer current
 item plop		Boot plop boot manager
 item tinycore		Boot tinycore linux
 item tinycore64		Boot tinycore linux [64bit kernel only]
@@ -33,8 +34,13 @@ item dcore-stretch  Boot dCore (debian stretch)
 item dcore-trusty	Boot dCore (ubuntu trusty version, 14.04)
 item dcore-xenial   Boot dCore (ubuntu xenial version, 16.04)
 item dcore-bionic   Boot dCore (ubuntu bionic version, 18.04)
+item dcore-bionic64 Boot dCore (64bit, ubuntu bionic 18.04)
+item dcore-buster64 Boot dCore (64bit, debian buster 10)
+item dcore-focal64  Boot dCore (64bit, ubuntu focal 20.04)
+item dcore-stretch64 Boot dCore (64bit, debian stretch 9)
 item arch		Boot archlinux installer
 item archplain  Boot archlinux installer [fallback]
+item archchain  Boot archlinux pxe menu (test)
 item centos		Boot CentOS installer
 item scientific		Boot Scientific Linux installer
 item fedora-mirror	Boot Fedora installer Server edition [mirror]
@@ -95,11 +101,11 @@ set type:string virt
 goto alpine_generic_boot
 
 :alpine_generic_boot
-set baseurl:string http://dl-cdn.alpinelinux.org/alpine/v3.11/
-set imageurl:string ${baseurl:string}/releases/${arch:string}/netboot-3.11.6/
+set baseurl:string http://dl-cdn.alpinelinux.org/alpine/v3.13/
+set imageurl:string ${baseurl:string}/releases/${arch:string}/netboot-3.13.1/
 initrd ${imageurl:string}/initramfs-${type:string}
 kernel ${imageurl:string}/vmlinuz-${type:string}
-boot vmlinuz-${type:string} alpine_repo=${baseurl:string}/main modloop=${baseurl:string}/releases/${arch:string}/netboot-3.11.6/modloop-${type:string}
+boot vmlinuz-${type:string} alpine_repo=${baseurl:string}/main modloop=${baseurl:string}/releases/${arch:string}/netboot-3.13.1/modloop-${type:string}
 
 
 :slax32
@@ -152,14 +158,14 @@ chain http://slax.org/ipxe/?arch=64bit
 
   dhcp
 
-  set baseurl:string http://ftp.icm.edu.pl/pub/Linux/fedora/linux/releases/32/Server/x86_64/os
+  set baseurl:string http://ftp.icm.edu.pl/pub/Linux/fedora/linux/releases/33/Server/x86_64/os
   initrd ${baseurl:string}/images/pxeboot/initrd.img
   chain  ${baseurl:string}/images/pxeboot/vmlinuz repo=${baseurl:string}
 
 :fedora-mirror-workstation
   dhcp
 
-  set baseurl:string http://ftp.icm.edu.pl/pub/Linux/fedora/linux/releases/32/Workstation/x86_64/os
+  set baseurl:string http://ftp.icm.edu.pl/pub/Linux/fedora/linux/releases/33/Workstation/x86_64/os
   initrd ${baseurl:string}/images/pxeboot/initrd.img
   chain  ${baseurl:string}/images/pxeboot/vmlinuz repo=${baseurl:string}
 
@@ -267,6 +273,12 @@ chain ${210:string}pxelinux.0
   set arch:string x86_64
   goto opensuse-generic-boot
 
+:opensuseleapcurrent
+  dhcp
+  set baseurl:string http://ftp.icm.edu.pl/pub/Linux/opensuse/distribution/leap/15.3
+  set arch:string x86_64
+  goto opensuse-generic-boot
+
 :opensuset
   dhcp
  # set baseurl:string http://download.opensuse.org/tumbleweed
@@ -302,9 +314,9 @@ chain ${210:string}pxelinux.0
 
 :tinycore
   dhcp 
-  initrd http://repo.tinycorelinux.net/11.x/x86/release/distribution_files/core.gz
-  initrd http://repo.tinycorelinux.net/11.x/x86/release/distribution_files/modules.gz
-  imgfetch http://repo.tinycorelinux.net/11.x/x86/release/distribution_files/vmlinuz
+  initrd http://repo.tinycorelinux.net/12.x/x86/release/distribution_files/core.gz
+  initrd http://repo.tinycorelinux.net/12.x/x86/release/distribution_files/modules.gz
+  imgfetch http://repo.tinycorelinux.net/12.x/x86/release/distribution_files/vmlinuz
   boot vmlinuz || goto selection
 
 # all other tinycore args still apply here
@@ -317,47 +329,81 @@ chain ${210:string}pxelinux.0
 
 :tinycore64
   dhcp
-  initrd http://repo.tinycorelinux.net/11.x/x86/release/distribution_files/core.gz
-  initrd http://repo.tinycorelinux.net/11.x/x86/release/distribution_files/modules64.gz
-  imgfetch http://repo.tinycorelinux.net/11.x/x86/release/distribution_files/vmlinuz64
+  initrd http://repo.tinycorelinux.net/12.x/x86/release/distribution_files/core.gz
+  initrd http://repo.tinycorelinux.net/12.x/x86/release/distribution_files/modules64.gz
+  imgfetch http://repo.tinycorelinux.net/12.x/x86/release/distribution_files/vmlinuz64
   boot vmlinuz64 || goto selection
-
 
 :tinycore64pure
   dhcp
-  initrd http://repo.tinycorelinux.net/11.x/x86_64/release/distribution_files/corepure64.gz
-  imgfetch http://repo.tinycorelinux.net/11.x/x86_64/release/distribution_files/vmlinuz64
+  initrd http://repo.tinycorelinux.net/12.x/x86_64/release/distribution_files/corepure64.gz
+  imgfetch http://repo.tinycorelinux.net/12.x/x86_64/release/distribution_files/vmlinuz64
   boot vmlinuz64 || goto selection
 
 :dcore-wheezy
-  set release:string wheezy
+  dhcp
+  set codename:string wheezy
+  set arch:string x86
   goto dcore-boot
 
 :dcore-stretch
-  set release:string stretch
+  dhcp
+  set codename:string stretch
+  set arch:string x86
   goto dcore-boot
 
 :dcore-jessie
-  set release:string jessie
+  dhcp
+  set codename:string jessie
+  set arch:string x86
   goto dcore-boot
 
 :dcore-trusty
-  set release:string trusty
+  dhcp
+  set codename:string trusty
+  set arch:string x86
   goto dcore-boot
 
 :dcore-xenial
-  set release:string xenial
+  dhcp
+  set codename:string xenial
+  set arch:string x86
   goto dcore-boot
 
 :dcore-bionic
-  set release:string bionic
+  dhcp
+  set codename:string bionic
+  set arch:string x86
+  goto dcore-boot
+
+:dcore-bionic64
+  dhcp
+  set codename:string bionic64
+  set arch:string x86_64
+  goto dcore-boot
+
+:dcore-buster64
+  dhcp
+  set codename:string buster64
+  set arch:string x86_64
+  goto dcore-boot
+
+:dcore-focal64
+  dhcp
+  set codename:string focal64
+  set arch:string x86_64
+  goto dcore-boot
+
+:dcore-stretch64
+  dhcp
+  set codename:string stretch64
+  set arch:string x86_64
   goto dcore-boot
 
 :dcore-boot
-  dhcp
-  initrd http://tinycorelinux.net/dCore/x86/release/dCore-${release:string}/dCore-${release:string}.gz
-  imgfetch http://tinycorelinux.net/dCore/x86/release/dCore-${release:string}/vmlinuz-${release:string}
-  boot vmlinuz-${release:string} || goto selection
+  initrd http://tinycorelinux.net/dCore/${arch:string}/release/dCore-${codename:string}/dCore-${codename:string}.gz
+  imgfetch http://tinycorelinux.net/dCore/${arch:string}/release/dCore-${codename:string}/vmlinuz-${codename:string}
+  boot vmlinuz-${codename:string} || goto selection
 
 :arch
 
@@ -367,10 +413,14 @@ chain ${210:string}pxelinux.0
 # instead just chainload their loader with necessary settings
 
 # imgfetch http://www.archlinux.org/releng/netboot/archlinux.ipxe
-#  boot archlinux.ipxe
+# boot archlinux.ipxe
 
   imgfetch https://www.archlinux.org/static/netboot/ipxe.31e77c156b6d.pxe
   boot ipxe.31e77c156b6d.pxe
+
+:archchain
+  dhcp
+  chain https://ipxe.archlinux.org/releng/netboot/archlinux.ipxe || goto selection
 
 # arch linux config when above option fails
 :archplain
@@ -378,4 +428,4 @@ chain ${210:string}pxelinux.0
   set baseurl:string http://ftp.icm.edu.pl/pub/Linux/dist/archlinux/iso/latest
   initrd ${baseurl:string}/arch/boot/x86_64/archiso.img
   imgfetch ${baseurl:string}/arch/boot/x86_64/vmlinuz
-  boot vmlinuz initrd=archiso.img archiso_http_srv=${baseurl:string}/ archisobasedir=arch || goto selection
+  boot vmlinuz initrd=archiso.img ip=dhcp net.ifnames=0 archisobasedir=arch archiso_http_srv=${baseurl:string} || goto selection
