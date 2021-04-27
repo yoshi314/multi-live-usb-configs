@@ -179,8 +179,8 @@ chain http://slax.org/ipxe/?arch=64bit
 
 :ubuntu-pxe
 dhcp
-set 210:string http://archive.ubuntu.com/ubuntu/dists/focal/main/installer-amd64/current/images/netboot/
-set 209:string http://archive.ubuntu.com/ubuntu/dists/focal/main/installer-amd64/current/images/netboot/pxelinux.cfg/default
+set 210:string http://archive.ubuntu.com/ubuntu/dists/groovy/main/installer-amd64/current/images/netboot/
+set 209:string http://archive.ubuntu.com/ubuntu/dists/groovy/main/installer-amd64/current/images/netboot/pxelinux.cfg/default
 chain ${210:string}pxelinux.0
 
 :ubuntu
@@ -193,7 +193,7 @@ chain ${210:string}pxelinux.0
 :ubuntu64
 
   dhcp
-  set 210:string http://archive.ubuntu.com/ubuntu/dists/focal/main/installer-amd64/current/legacy-images/netboot/ubuntu-installer/amd64/
+  set 210:string http://archive.ubuntu.com/ubuntu/dists/groovy/main/installer-amd64/current/legacy-images/netboot/ubuntu-installer/amd64/
   initrd ${210:string}initrd.gz
   chain ${210:string}linux
 
