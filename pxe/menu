@@ -45,8 +45,8 @@ item centos		Boot CentOS installer
 item scientific		Boot Scientific Linux installer
 item fedora-mirror	Boot Fedora installer Server edition [mirror]
 item fedora-mirror-workstation Boot Fedora installer Workstation edition [mirror]
-item ubuntu		Boot Ubuntu installer [32bit, eoan]
-item ubuntu64		Boot Ubuntu installer [64bit, current]
+#item ubuntu		Boot Ubuntu installer [32bit, eoan]
+#item ubuntu64		Boot Ubuntu installer [64bit, current]
 item slitaz		Boot SliTaz
 item slitaz-rolling	Boot SliTaz [rolling]
 item alpine64     Boot Alpine Linux 64 [vanilla]
@@ -54,7 +54,7 @@ item alpine64virt     Boot Alpine Linux 64 [virt]
 item alpine32     Boot Alpine Linux 32 [vanilla]
 item alpine32virt     Boot Alpine Linux 32 [virt]
 item fedora		Chainload Fedora installer
-item ubuntu-pxe     Chainload Ubuntu pxelinux
+#item ubuntu-pxe     Chainload Ubuntu pxelinux
 item localmenu      Boot extra local menu
 
 
@@ -177,25 +177,25 @@ chain http://slax.org/ipxe/?arch=64bit
   initrd ${baseurl:string}isolinux/initrd.img
   chain  ${baseurl:string}isolinux/vmlinuz repo=${baseurl:string}
 
-:ubuntu-pxe
-dhcp
-set 210:string http://archive.ubuntu.com/ubuntu/dists/groovy/main/installer-amd64/current/images/netboot/
-set 209:string http://archive.ubuntu.com/ubuntu/dists/groovy/main/installer-amd64/current/images/netboot/pxelinux.cfg/default
-chain ${210:string}pxelinux.0
-
-:ubuntu
-
-  dhcp
-  set 210:string http://archive.ubuntu.com/ubuntu/dists/eoan/main/installer-i386/current/images/netboot/ubuntu-installer/i386/
-  initrd ${210:string}initrd.gz
-  chain ${210:string}linux
-
-:ubuntu64
-
-  dhcp
-  set 210:string http://archive.ubuntu.com/ubuntu/dists/groovy/main/installer-amd64/current/legacy-images/netboot/ubuntu-installer/amd64/
-  initrd ${210:string}initrd.gz
-  chain ${210:string}linux
+#:ubuntu-pxe
+#dhcp
+#set 210:string http://archive.ubuntu.com/ubuntu/dists/groovy/main/installer-amd64/current/images/netboot/
+#set 209:string http://archive.ubuntu.com/ubuntu/dists/groovy/main/installer-amd64/current/images/netboot/pxelinux.cfg/default
+#chain ${210:string}pxelinux.0
+#
+#:ubuntu
+#
+#  dhcp
+#  set 210:string http://archive.ubuntu.com/ubuntu/dists/eoan/main/installer-i386/current/images/netboot/ubuntu-installer/i386/
+#  initrd ${210:string}initrd.gz
+#  chain ${210:string}linux
+#
+#:ubuntu64
+#
+#  dhcp
+#  set 210:string http://archive.ubuntu.com/ubuntu/dists/groovy/main/installer-amd64/current/legacy-images/netboot/ubuntu-installer/amd64/
+#  initrd ${210:string}initrd.gz
+#  chain ${210:string}linux
 
 
 #
