@@ -425,7 +425,7 @@ chain http://slax.org/ipxe/?arch=64bit
 # arch linux config when above option fails
 :archplain
   dhcp
-  set baseurl:string http://ftp.icm.edu.pl/pub/Linux/dist/archlinux/iso/latest
-  initrd ${baseurl:string}/arch/boot/x86_64/archiso.img
-  imgfetch ${baseurl:string}/arch/boot/x86_64/vmlinuz
-  boot vmlinuz initrd=archiso.img ip=dhcp net.ifnames=0 archisobasedir=arch archiso_http_srv=${baseurl:string} || goto selection
+  set baseurl:string https://ftp.icm.edu.pl/pub/Linux/dist/archlinux
+  initrd ${baseurl:string}/iso/archboot/latest/boot/initramfs_x86_64.img
+  imgfetch ${baseurl:string}/iso/archboot/latest/boot/vmlinuz_x86_64
+  boot vmlinuz_x86_64 initrd=initramfs_x86_64 ip=dhcp net.ifnames=0 archisobasedir=arch archiso_http_srv=${baseurl:string} || goto selection
