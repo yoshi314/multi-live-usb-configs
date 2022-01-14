@@ -101,11 +101,11 @@ set type:string virt
 goto alpine_generic_boot
 
 :alpine_generic_boot
-set baseurl:string http://dl-cdn.alpinelinux.org/alpine/v3.14/
-set imageurl:string ${baseurl:string}/releases/${arch:string}/netboot-3.14.0/
+set baseurl:string http://dl-cdn.alpinelinux.org/alpine/v3.15/
+set imageurl:string ${baseurl:string}/releases/${arch:string}/netboot-3.15.0/
 initrd ${imageurl:string}/initramfs-${type:string}
 kernel ${imageurl:string}/vmlinuz-${type:string}
-boot vmlinuz-${type:string} alpine_repo=${baseurl:string}/main modloop=${baseurl:string}/releases/${arch:string}/netboot-3.14.0/modloop-${type:string}
+boot vmlinuz-${type:string} alpine_repo=${baseurl:string}/main modloop=${baseurl:string}/releases/${arch:string}/netboot-3.15.0/modloop-${type:string}
 
 
 :slax32
