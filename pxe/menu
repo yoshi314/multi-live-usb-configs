@@ -43,8 +43,9 @@ item archplain  Boot archlinux installer [fallback]
 item archchain  Boot archlinux pxe menu (test)
 item centos		Boot CentOS installer
 item scientific		Boot Scientific Linux installer
-item fedora-mirror	Boot Fedora installer Server edition [mirror]
 item fedora-mirror-workstation Boot Fedora installer Workstation edition [mirror]
+item fedora-mirror-server Boot Fedora installer Server edition [mirror]
+item fedora-mirror-silverblue Boot Fedora installer Silverblue edition [mirror]
 #item ubuntu		Boot Ubuntu installer [32bit, eoan]
 #item ubuntu64		Boot Ubuntu installer [64bit, current]
 item slitaz		Boot SliTaz
@@ -95,7 +96,7 @@ set type:string lts
 goto alpine_generic_boot
 
 :alpine32virt
-dhcp
+ahcp
 set arch:string x86
 set type:string virt
 goto alpine_generic_boot
@@ -137,38 +138,32 @@ chain http://slax.org/ipxe/?arch=64bit
   sanboot http://mirror.slitaz.org/iso/rolling/slitaz-rolling.iso
 
 :fedora
-
-
   dhcp
   set 209:string cfg/pxelinux.cfg
   set 210:string http://dl.fedoraproject.org/pub/alt/bfo/
   chain ${210:string}pxelinux.0
 
-:fedora-mirror
-# certain fedora mirrors picked by BFO entry (the one above)
-# are missing .treeinfo file in the os/ subdir 
-# this breaks installation
-# if that happens to you, pick a specific mirror that works
-# to work that issue around
-
-
-#
-# new layout, replace 'Workstation' with other directory names for fedora variants
-#
-
-  dhcp
-
-  set baseurl:string http://ftp.icm.edu.pl/pub/Linux/fedora/linux/releases/35/Server/x86_64/os
-  initrd ${baseurl:string}/images/pxeboot/initrd.img
-  chain  ${baseurl:string}/images/pxeboot/vmlinuz repo=${baseurl:string}
+:fedora-mirror-server
+  set fedora_version:string 35
+  set fedora_variant Server
+  goto fedora-boot
 
 :fedora-mirror-workstation
-  dhcp
+  set fedora_version:string 35
+  set fedora_variant Server
+  goto fedora-boot
 
-  set baseurl:string http://ftp.icm.edu.pl/pub/Linux/fedora/linux/releases/35/Workstation/x86_64/os
+:fedora-mirror-silverblue
+  set fedora_version:string 35
+  set fedora_variant Silverblue
+  goto fedora-boot
+
+# pick your mirror
+:fedora-boot
+  dhcp
+  set baseurl:string http://ftp.icm.edu.pl/pub/Linux/fedora/linux/releases/${fedora_version:string}/${fedora_variant:string}/x86_64/os
   initrd ${baseurl:string}/images/pxeboot/initrd.img
   chain  ${baseurl:string}/images/pxeboot/vmlinuz repo=${baseurl:string}
-
 
 :centos
 
