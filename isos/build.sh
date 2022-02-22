@@ -1,5 +1,6 @@
 #!/bin/sh
 
-. functions
+. ./functions
 
 unpack_arch
+unpack_arch32

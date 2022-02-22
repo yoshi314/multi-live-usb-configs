@@ -1,10 +1,23 @@
 unpack_arch() {
-	[ -e "arch.iso" ] || exit 0
+    echo "Checking for Arch [arch.iso]"
+	[ -e "arch.iso" ] || return 0
 	echo "unpacking archlinux iso [arch.iso]"
 	mkdir -p arch/x86_64 || true
 	cd arch/x86_64
 
 	7z e -y ../../arch.iso arch/boot/x86_64/initramfs-linux.img arch/boot/x86_64/vmlinuz-linux arch/x86_64/airootfs.sfs arch/x86_64/airootfs.sfs.sig
 	7z e -y ../../arch.iso arch/boot/*img
+	cd ../..
+}
+
+unpack_arch32() {
+    echo "Checking for Arch 32 bit [arch32.iso]"
+	[ -e "arch32.iso" ] || return 0
+	echo "unpacking archlinux iso [arch32.iso]"
+	mkdir -p arch/i686 || true
+	cd arch/i686
+
+	7z e -y ../../arch32.iso arch/boot/i686/initramfs-linux.img arch/boot/i686/vmlinuz-linux arch/i686/airootfs.sfs arch/i686/airootfs.sfs.sig
+	7z e -y ../../arch32.iso arch/boot/*img
 	cd ../..
 }
