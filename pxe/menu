@@ -22,7 +22,6 @@ item opensuset64	Boot opensuse 64bit installer (tumbleweed)
 item opensuset		Boot opensuse 32bit installer (tumbleweed)
 item opensusef64	Boot opensuse Factory 64bit installer
 item opensusef32	Boot opensuse Factory 32bit installer
-item opensuseleap	Boot opensuse Leap installer 42
 item opensuseleapcurrent	Boot opensuse Leap installer current
 item plop		Boot plop boot manager
 item tinycore		Boot tinycore linux
@@ -144,17 +143,17 @@ chain http://slax.org/ipxe/?arch=64bit
   chain ${210:string}pxelinux.0
 
 :fedora-mirror-server
-  set fedora_version:string 35
+  set fedora_version:string 37
   set fedora_variant Server
   goto fedora-boot
 
 :fedora-mirror-workstation
-  set fedora_version:string 35
+  set fedora_version:string 37
   set fedora_variant Server
   goto fedora-boot
 
 :fedora-mirror-silverblue
-  set fedora_version:string 35
+  set fedora_version:string 37
   set fedora_variant Silverblue
   goto fedora-boot
 
@@ -249,12 +248,10 @@ chain http://slax.org/ipxe/?arch=64bit
 
 
 :opensusef64
-
   dhcp
   set baseurl:string http://ftp.icm.edu.pl/pub/Linux/opensuse/factory
   set arch:string x86_64
   goto opensuse-generic-boot
-
 
 :opensusef32
   dhcp
@@ -262,15 +259,9 @@ chain http://slax.org/ipxe/?arch=64bit
   set arch:string i386
   goto opensuse-generic-boot
 
-:opensuseleap
-  dhcp
-  set baseurl:string http://ftp.icm.edu.pl/pub/Linux/opensuse/distribution/leap/42.2
-  set arch:string x86_64
-  goto opensuse-generic-boot
-
 :opensuseleapcurrent
   dhcp
-  set baseurl:string http://ftp.icm.edu.pl/pub/Linux/opensuse/distribution/leap/15.3
+  set baseurl:string http://ftp.icm.edu.pl/pub/Linux/opensuse/distribution/leap/15.4
   set arch:string x86_64
   goto opensuse-generic-boot
 
