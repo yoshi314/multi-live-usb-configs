@@ -45,6 +45,7 @@ item scientific		Boot Scientific Linux installer
 item fedora-mirror-workstation Boot Fedora installer Workstation edition [mirror]
 item fedora-mirror-server Boot Fedora installer Server edition [mirror]
 item fedora-mirror-silverblue Boot Fedora installer Silverblue edition [mirror]
+item fedora-mirror-Everything Boot Fedora installer Everything edition [mirror]
 #item ubuntu		Boot Ubuntu installer [32bit, eoan]
 #item ubuntu64		Boot Ubuntu installer [64bit, current]
 item slitaz		Boot SliTaz
@@ -143,17 +144,22 @@ chain http://slax.org/ipxe/?arch=64bit
   chain ${210:string}pxelinux.0
 
 :fedora-mirror-server
-  set fedora_version:string 37
+  set fedora_version:string 38
   set fedora_variant Server
   goto fedora-boot
 
 :fedora-mirror-workstation
-  set fedora_version:string 37
+  set fedora_version:string 38
   set fedora_variant Server
   goto fedora-boot
 
+:fedora-mirror-everything
+  set fedora_version:string 38
+  set fedora_variant Everything
+  goto fedora-boot
+
 :fedora-mirror-silverblue
-  set fedora_version:string 37
+  set fedora_version:string 38
   set fedora_variant Silverblue
   goto fedora-boot
 
@@ -162,7 +168,7 @@ chain http://slax.org/ipxe/?arch=64bit
   dhcp
   set baseurl:string http://ftp.icm.edu.pl/pub/Linux/fedora/linux/releases/${fedora_version:string}/${fedora_variant:string}/x86_64/os
   initrd ${baseurl:string}/images/pxeboot/initrd.img
-  chain  ${baseurl:string}/images/pxeboot/vmlinuz repo=${baseurl:string}
+  chain  ${baseurl:string}/images/pxeboot/vmlinuz inst.repo=${baseurl:string} root=live:${baseurl:string}/images/install.img
 
 :centos
 
@@ -401,14 +407,15 @@ chain http://slax.org/ipxe/?arch=64bit
 # imgfetch http://www.archlinux.org/releng/netboot/archlinux.ipxe
 # boot archlinux.ipxe
 
-  imgfetch https://www.archlinux.org/static/netboot/ipxe.31e77c156b6d.pxe
-  boot ipxe.31e77c156b6d.pxe
+  imgfetch https://archlinux.org/static/netboot/ipxe-arch.5ee66f360339.pxe
+  boot ipxe-arch.5ee66f360339.pxe
 
 :archchain
   dhcp
   chain https://ipxe.archlinux.org/releng/netboot/archlinux.ipxe || goto selection
 
 # arch linux config when above option fails
+# pick your own favorite mirror
 :archplain
   dhcp
   set baseurl:string https://ftp.icm.edu.pl/pub/Linux/dist/archlinux
