@@ -45,7 +45,7 @@ item scientific		Boot Scientific Linux installer
 item fedora-mirror-workstation Boot Fedora installer Workstation edition [mirror]
 item fedora-mirror-server Boot Fedora installer Server edition [mirror]
 item fedora-mirror-silverblue Boot Fedora installer Silverblue edition [mirror]
-item fedora-mirror-Everything Boot Fedora installer Everything edition [mirror]
+item fedora-mirror-everything Boot Fedora installer Everything edition [mirror]
 #item ubuntu		Boot Ubuntu installer [32bit, eoan]
 #item ubuntu64		Boot Ubuntu installer [64bit, current]
 item slitaz		Boot SliTaz
