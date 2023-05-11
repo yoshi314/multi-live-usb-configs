@@ -106,7 +106,7 @@ set baseurl:string http://dl-cdn.alpinelinux.org/alpine/v3.18/
 set imageurl:string ${baseurl:string}/releases/${arch:string}/netboot-3.18.0/
 initrd ${imageurl:string}/initramfs-${type:string}
 kernel ${imageurl:string}/vmlinuz-${type:string}
-boot vmlinuz-${type:string} alpine_repo=${baseurl:string}/main modloop=${baseurl:string}/releases/${arch:string}/netboot-3.17.2/modloop-${type:string}
+boot vmlinuz-${type:string} alpine_repo=${baseurl:string}/main modloop=${baseurl:string}/releases/${arch:string}/netboot-3.18.0/modloop-${type:string}
 
 
 :slax32
