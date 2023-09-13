@@ -1,7 +1,8 @@
 #!/bin/sh
 
-base="http://mirrors.kernel.org/archlinux/iso/archboot/latest/boot/"
+base="http://mirrors.kernel.org/archlinux/iso/latest/arch/boot/x86_64"
 
-rm -v vmlinuz_{i686,x86_64} initramfs_{i686,x86_64}.img
+rm -v vmlinuz-linux initramfs-linux.img
 
-wget ${base}/{vmlinuz_{i686,x86_64},initramfs_{i686,x86_64}.img}
+wget ${base}/vmlinuz-linux
+wget ${base}/initramfs-linux.img
