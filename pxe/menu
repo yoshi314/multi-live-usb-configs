@@ -104,7 +104,7 @@ set type:string virt
 goto alpine_generic_boot
 
 :alpine_generic_boot
-set alpine_version:string 3.20
+set alpine_version:string 3.21
 set baseurl:string http://dl-cdn.alpinelinux.org/alpine/v${alpine_version:string}/
 set imageurl:string ${baseurl:string}/releases/${arch:string}/netboot-${alpine_version:string}.0/
 initrd ${imageurl:string}/initramfs-${type:string}
