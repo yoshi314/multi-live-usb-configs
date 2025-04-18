@@ -22,3 +22,17 @@ You can generate a specific image with
   make bin/ipxe.dsk EMBED=mymenufile
 
 (replace for different image accordingly)
+
+
+Some alterations to IPXE may be necessary if you are building it yourself
+
+$EDITOR src/config/general.h
+
+# change undef to define by those and uncomment ( // ) if necessary
+
+
+# for sanboot
+#define SANBOOT_PROTO_HTTP
+
+# for fetching from https
+#define DOWNLOAD_PROTO_HTTPS
