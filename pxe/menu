@@ -52,6 +52,7 @@ item fedora-mirror-everything Boot Fedora installer Everything edition [mirror]
 #item ubuntu64		Boot Ubuntu installer [64bit, current]
 item slitaz		Boot SliTaz
 item slitaz-rolling	Boot SliTaz [rolling]
+item slitaz64		Boot SliTaz64
 item alpine64     Boot Alpine Linux 64 [vanilla]
 item alpine64virt     Boot Alpine Linux 64 [virt]
 item alpine32     Boot Alpine Linux 32 [vanilla]
@@ -129,16 +130,15 @@ chain http://slax.org/ipxe/?arch=64bit
 
 :slitaz
   dhcp
-  set weburl http://mirror.slitaz.org/pxe/
-  set 210:string ${weburl} && chain ${weburl}pxelinux.0 && boot ||
-  set weburl http://mirror.switch.ch/ftp/mirror/slitaz/pxe/
-  set 210:string ${weburl} && chain ${weburl}pxelinux.0 && boot ||
-  set weburl http://download.tuxfamily.org/slitaz/pxe/
-  set 210:string ${weburl} && chain ${weburl}pxelinux.0 && boot 
+  sanboot http://mirror.slitaz.org/iso/rolling/slitaz-rolling-core-5in1.iso
 
 :slitaz-rolling
   dhcp
   sanboot http://mirror.slitaz.org/iso/rolling/slitaz-rolling.iso
+
+:slitaz64
+  dhcp
+  sanboot https://mirror.slitaz.org/iso/rolling/slitaz-rolling-core64.iso
 
 :fedora
   dhcp
@@ -147,22 +147,22 @@ chain http://slax.org/ipxe/?arch=64bit
   chain ${210:string}pxelinux.0
 
 :fedora-mirror-server
-  set fedora_version:string 41
+  set fedora_version:string 42
   set fedora_variant Server
   goto fedora-boot
 
 :fedora-mirror-workstation
-  set fedora_version:string 41
+  set fedora_version:string 42
   set fedora_variant Server
   goto fedora-boot
 
 :fedora-mirror-everything
-  set fedora_version:string 41
+  set fedora_version:string 42
   set fedora_variant Everything
   goto fedora-boot
 
 :fedora-mirror-silverblue
-  set fedora_version:string 41
+  set fedora_version:string 42
   set fedora_variant Silverblue
   goto fedora-boot
 
