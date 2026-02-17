@@ -324,9 +324,9 @@ chain http://slax.org/ipxe/?arch=64bit
 
 :tinycore
   dhcp 
-  initrd http://repo.tinycorelinux.net/16.x/x86/release/distribution_files/core.gz
-  initrd http://repo.tinycorelinux.net/16.x/x86/release/distribution_files/modules.gz
-  imgfetch http://repo.tinycorelinux.net/16.x/x86/release/distribution_files/vmlinuz
+  initrd http://repo.tinycorelinux.net/17.x/x86/release/distribution_files/core.gz
+  initrd http://repo.tinycorelinux.net/17.x/x86/release/distribution_files/modules.gz
+  imgfetch http://repo.tinycorelinux.net/17.x/x86/release/distribution_files/vmlinuz
   boot vmlinuz || goto selection
 
 # all other tinycore args still apply here
@@ -339,15 +339,15 @@ chain http://slax.org/ipxe/?arch=64bit
 
 :tinycore64
   dhcp
-  initrd http://repo.tinycorelinux.net/16.x/x86/release/distribution_files/core.gz
-  initrd http://repo.tinycorelinux.net/16.x/x86/release/distribution_files/modules64.gz
-  imgfetch http://repo.tinycorelinux.net/16.x/x86/release/distribution_files/vmlinuz64
+  initrd http://repo.tinycorelinux.net/17.x/x86/release/distribution_files/core.gz
+  initrd http://repo.tinycorelinux.net/17.x/x86/release/distribution_files/modules64.gz
+  imgfetch http://repo.tinycorelinux.net/17.x/x86/release/distribution_files/vmlinuz64
   boot vmlinuz64 || goto selection
 
 :tinycore64pure
   dhcp
-  initrd http://repo.tinycorelinux.net/16.x/x86_64/release/distribution_files/corepure64.gz
-  imgfetch http://repo.tinycorelinux.net/16.x/x86_64/release/distribution_files/vmlinuz64
+  initrd http://repo.tinycorelinux.net/17.x/x86_64/release/distribution_files/corepure64.gz
+  imgfetch http://repo.tinycorelinux.net/17.x/x86_64/release/distribution_files/vmlinuz64
   boot vmlinuz64 || goto selection
 
 :dcore-wheezy
