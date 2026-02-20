@@ -277,7 +277,7 @@ chain http://slax.org/ipxe/?arch=64bit
 
 :opensuseleapcurrent
   dhcp
-  set baseurl:string http://ftp.icm.edu.pl/pub/Linux/opensuse/distribution/leap/15.4
+  set baseurl:string http://ftp.icm.edu.pl/pub/Linux/opensuse/distribution/leap/16.1
   set arch:string x86_64
   goto opensuse-generic-boot
 
@@ -297,7 +297,7 @@ chain http://slax.org/ipxe/?arch=64bit
 
 :opensusesr
   dhcp
-  set baseurl:string http://cdn.opensuse.org/repositories/openSUSE:/ALP:/Experimental:/Slowroll/base
+  set baseurl:string http://ftp.icm.edu.pl/pub/Linux/opensuse/slowroll
   set arch:string x86_64
   goto opensuse-generic-boot
 
